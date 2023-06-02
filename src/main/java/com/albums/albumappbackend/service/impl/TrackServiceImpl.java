@@ -47,7 +47,8 @@ public class TrackServiceImpl implements TrackService {
         Optional<Album> existingAlbum = albumDao.findById(albumId);
         if (!existingAlbum.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Album with id " + albumId + " does not exist");
-        } else if (isValueMissing(track)) {
+        }
+        if (isValueMissing(track)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid request");
         }
         Album album = existingAlbum.get();
@@ -61,7 +62,8 @@ public class TrackServiceImpl implements TrackService {
         Optional<Track> existingTrack = trackDao.findById(id);
         if (!existingTrack.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Track with id " + id + " does not exist");
-        } else if (isValueMissing(track)) {
+        }
+        if (isValueMissing(track)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid request");
         }
         return trackDao.save(track);

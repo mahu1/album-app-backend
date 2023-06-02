@@ -57,7 +57,8 @@ public class AlbumServiceImpl implements AlbumService {
         List<Album> result = findByArtistAndTitle(album.getArtist(), album.getTitle());
         if (!result.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.FOUND, "Album already found: " + album.getArtist() + " - " + album.getTitle());
-        } else if (isValueMissing(album)) {
+        }
+        if (isValueMissing(album)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid request");
         }
         return albumDao.save(album);
@@ -70,7 +71,12 @@ public class AlbumServiceImpl implements AlbumService {
         Optional<Album> existingAlbum = albumDao.findById(id);
         if (!existingAlbum.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Album with id " + id + " does not exist");
-        } else if (isValueMissing(album)) {
+        }
+        List<Album> result = findByArtistAndTitle(album.getArtist(), album.getTitle());
+        if (!result.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.FOUND, "Album already found: " + album.getArtist() + " - " + album.getTitle());
+        }
+        if (isValueMissing(album)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid request");
         }
         return albumDao.save(album);
