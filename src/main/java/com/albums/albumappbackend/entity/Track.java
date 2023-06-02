@@ -1,59 +1,51 @@
 package com.albums.albumappbackend.entity;
 
+import com.albums.albumappbackend.dto.TrackDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import org.springframework.util.StringUtils;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
-@Table(name = "track")
+@Table(name = "tracks")
 public class Track {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private int id;
+    private Long id;
     @Column(name = "title")
     private String title;
     @Column(name = "length")
     private String length;
     @Column(name = "track_number")
     private Long trackNumber;
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "album_id", referencedColumnName = "id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Album album;
 
     public Track() {
 
     }
-    public Track(int id, String title, String length, Long trackNumber, Album album) {
-        this.id = id;
-        this.title = title;
-        this.length = length;
-        this.trackNumber = trackNumber;
-        this.album = album;
+
+    public Track(TrackDto trackDto) {
+        this.id = trackDto.getId();
+        this.title = trackDto.getTitle();
+        this.length = trackDto.getLength();
+        this.trackNumber = trackDto.getTrackNumber();
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getLength() {
         return length;
-    }
-
-    public void setLength(String length) {
-        this.length = length;
     }
 
     public Long getTrackNumber() {
@@ -64,16 +56,14 @@ public class Track {
         this.trackNumber = trackNumber;
     }
 
+    @JsonIgnore
     public Album getAlbum() {
         return album;
     }
 
+    @JsonIgnore
     public void setAlbum(Album album) {
         this.album = album;
     }
 
-    public boolean isValueMissing() {
-        return StringUtils.isEmpty(this.getTitle()) || StringUtils.isEmpty(this.getLength())
-                || StringUtils.isEmpty(this.getTrackNumber());
-    }
 }

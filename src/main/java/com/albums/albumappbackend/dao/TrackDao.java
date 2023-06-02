@@ -1,9 +1,10 @@
-package com.albums.albumappbackend.repository;
+package com.albums.albumappbackend.dao;
 
 import com.albums.albumappbackend.entity.Track;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TrackRepository extends JpaRepository<Track, Long> {
+public interface TrackDao extends JpaRepository<Track, Long> {
+
 }

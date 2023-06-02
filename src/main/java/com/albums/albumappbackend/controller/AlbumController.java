@@ -1,73 +1,81 @@
 package com.albums.albumappbackend.controller;
 
+import com.albums.albumappbackend.dto.AlbumDto;
 import com.albums.albumappbackend.entity.Album;
 import com.albums.albumappbackend.service.impl.AlbumServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @RestController
 public class AlbumController {
 
-    private AlbumServiceImpl albumService;
-
     @Autowired
-    public AlbumController(AlbumServiceImpl albumService) {
-        this.albumService = albumService;
+    AlbumServiceImpl albumService;
+
+    final private String trackChildren = "tracks";
+
+    @GetMapping("/album/{id}")
+    public AlbumDto getById(@PathVariable("id") Long id, @RequestParam("_embed") Optional<String> children) {
+        Optional<Album> album = albumService.findById(id);
+        if (album.isPresent()) {
+            Album albumFound = album.get();
+            return buildResultDto(children, Arrays.asList(albumFound)).get(0);
+        }
+        return null;
     }
 
-    @GetMapping("/album")
-    public Optional<Album> findById(@RequestParam("id") Long id) {
-        return albumService.findById(id);
+    @GetMapping("/albumsbyartist")
+    public List<AlbumDto> getByArtist(@RequestParam("artist") String artist, @RequestParam("_embed") Optional<String> children) {
+        List<Album> albums = albumService.findByArtist(artist);
+        return buildResultDto(children, albums);
     }
 
-    @GetMapping("/albumandtracks")
-    public Album findByIdWithTracks(@RequestParam("id") Long id) {
-        return albumService.findByIdWithTracks(id);
+    @GetMapping("/albumsbytitle")
+    public List<AlbumDto> getByTitle(@RequestParam("title") String title, @RequestParam("_embed") Optional<String> children) {
+        List<Album> albums = albumService.findByTitle(title);
+        return buildResultDto(children, albums);
     }
 
-    @GetMapping("/albums")
-    public List<Album> findByIds(@RequestParam("ids") Set<Long> ids) {
-        return albumService.findByIds(ids);
-    }
-
-    @GetMapping("/albumbyartist")
-    public List<Album> findByArtist(@RequestParam("artist") String artist) {
-        return albumService.findByArtist(artist);
-    }
-
-    @GetMapping("/albumbytitle")
-    public List<Album> findByTitle(@RequestParam("title") String title) {
-        return albumService.findByTitle(title);
+    @GetMapping("/albumsbytracktitle")
+    public List<AlbumDto> getByTrackTitle(@RequestParam("tracktitle") String trackTitle, @RequestParam("_embed") Optional<String> children) {
+        List<Album> albums = albumService.findByTrackTitle(trackTitle);
+        return buildResultDto(children, albums);
     }
 
     @GetMapping("/")
-    public List<Album> findAll() {
-        return albumService.findAll();
+    public List<AlbumDto> getAlbums(@RequestParam("_embed") Optional<String> children) {
+        List<Album> albums = albumService.findAll();
+        return buildResultDto(children, albums);
     }
 
-    @DeleteMapping("/album")
-    public void delete(@RequestParam("id") Long id) {
+    @DeleteMapping("/album/{id}")
+    public void delete(@PathVariable("id") Long id) {
         albumService.delete(id);
     }
 
     @PostMapping("/album")
-    public Album create(@RequestBody Album album) {
-        List<Album> result = albumService.findByArtistAndTitle(album.getArtist(), album.getTitle());
-        if (!result.isEmpty() || album.isValueMissing()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid request");
-        }
-        return albumService.create(album);
+    public AlbumDto create(@RequestBody AlbumDto albumDto) {
+        Album album = new Album(albumDto);
+        Album createdAlbum = albumService.create(album);
+        return new AlbumDto(createdAlbum.getId(), createdAlbum.getTitle(), createdAlbum.getArtist(), createdAlbum.getCover(), createdAlbum.getReleaseDate());
     }
 
     @PutMapping("/album")
-    public void update(@RequestBody Album album) {
-        albumService.update(album);
+    public AlbumDto update(@RequestBody AlbumDto albumDto) {
+        Album album = new Album(albumDto);
+        Album updatedAlbum = albumService.update(album);
+        return new AlbumDto(updatedAlbum.getId(), updatedAlbum.getTitle(), updatedAlbum.getArtist(), updatedAlbum.getCover(), updatedAlbum.getReleaseDate());
+    }
+
+    private List<AlbumDto> buildResultDto(Optional<String> children, List<Album> albums) {
+        if (children.isPresent() && children.get().equals(trackChildren)) {
+            return albums.stream().map(a -> new AlbumDto(a)).toList();
+        }
+        return albums.stream().map(a -> new AlbumDto(a.getId(), a.getTitle(), a.getArtist(), a.getCover(), a.getReleaseDate())).toList();
     }
 
 }
