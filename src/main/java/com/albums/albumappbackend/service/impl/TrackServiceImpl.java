@@ -38,7 +38,7 @@ public class TrackServiceImpl implements TrackService {
         Set<Track> tracks = track.getAlbum().getTracks();
         tracks.stream().filter(t -> t.getTrackNumber() > track.getTrackNumber()).forEach(t -> {
             t.setTrackNumber(t.getTrackNumber() - 1);
-            update(t);
+            update(t.getId(), t);
         });
     }
 
