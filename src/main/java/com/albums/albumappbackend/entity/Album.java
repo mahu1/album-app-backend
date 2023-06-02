@@ -23,7 +23,7 @@ public class Album
     private String cover;
     @Column(name = "release_date")
     private Date releaseDate;
-    @OneToMany(mappedBy="album", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy="album")
     private Set<Track> tracks;
 
     public Album() {

@@ -20,7 +20,7 @@ public class Track {
     private String length;
     @Column(name = "track_number")
     private Long trackNumber;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "album_id", referencedColumnName = "id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Album album;
