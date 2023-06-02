@@ -9,6 +9,6 @@ public interface TrackService {
 
     Track create(Long albumId, Track track);
 
-    Track update(Track track);
+    Track update(Long id, Track track);
 
 }

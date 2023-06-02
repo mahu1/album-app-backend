@@ -66,10 +66,10 @@ public class AlbumServiceImpl implements AlbumService {
         return albumDao.findByArtistAndTitle(artist, title);
     }
     @Override
-    public Album update(Album album) {
-        Optional<Album> existingAlbum = albumDao.findById(album.getId());
+    public Album update(Long id, Album album) {
+        Optional<Album> existingAlbum = albumDao.findById(id);
         if (!existingAlbum.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Album with id " + album.getId() + " does not exist");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Album with id " + id + " does not exist");
         } else if (isValueMissing(album)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid request");
         }

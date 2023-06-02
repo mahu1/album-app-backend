@@ -57,10 +57,10 @@ public class TrackServiceImpl implements TrackService {
     }
 
     @Override
-    public Track update(Track track) {
-        Optional<Track> existingTrack = trackDao.findById(track.getId());
+    public Track update(Long id, Track track) {
+        Optional<Track> existingTrack = trackDao.findById(id);
         if (!existingTrack.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Track with id " + track.getId() + " does not exist");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Track with id " + id + " does not exist");
         } else if (isValueMissing(track)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid request");
         }

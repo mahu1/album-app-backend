@@ -26,9 +26,9 @@ public class TrackController {
     }
 
     @PutMapping("/track")
-    public TrackDto update(@RequestBody TrackDto trackDto) {
+    public TrackDto update(@PathVariable("id") Long id, @RequestBody TrackDto trackDto) {
         Track track = new Track(trackDto);
-        Track updatedTrack = trackService.update(track);
+        Track updatedTrack = trackService.update(id, track);
         return new TrackDto(updatedTrack);
     }
 

@@ -21,5 +21,5 @@ public interface AlbumService {
 
     Album create(Album album);
 
-    Album update(Album album);
+    Album update(Long id, Album album);
 }

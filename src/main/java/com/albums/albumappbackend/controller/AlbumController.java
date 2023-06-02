@@ -65,9 +65,9 @@ public class AlbumController {
     }
 
     @PutMapping("/album")
-    public AlbumDto update(@RequestBody AlbumDto albumDto) {
+    public AlbumDto update(@PathVariable("id") Long id, @RequestBody AlbumDto albumDto) {
         Album album = new Album(albumDto);
-        Album updatedAlbum = albumService.update(album);
+        Album updatedAlbum = albumService.update(id, album);
         return new AlbumDto(updatedAlbum.getId(), updatedAlbum.getTitle(), updatedAlbum.getArtist(), updatedAlbum.getCover(), updatedAlbum.getReleaseDate());
     }
 
