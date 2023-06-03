@@ -16,7 +16,7 @@ public class AlbumController {
     @Autowired
     AlbumServiceImpl albumService;
 
-    final private String trackChildren = "tracks";
+    final private String TRACK_CHILDREN = "tracks";
 
     @GetMapping("/album/{id}")
     public AlbumDto getById(@PathVariable("id") Long id, @RequestParam("_embed") Optional<String> children) {
@@ -72,7 +72,7 @@ public class AlbumController {
     }
 
     private List<AlbumDto> buildResultDto(Optional<String> children, List<Album> albums) {
-        if (children.isPresent() && children.get().equals(trackChildren)) {
+        if (children.isPresent() && children.get().equals(TRACK_CHILDREN)) {
             return albums.stream().map(a -> new AlbumDto(a)).toList();
         }
         return albums.stream().map(a -> new AlbumDto(a.getId(), a.getTitle(), a.getArtist(), a.getCover(), a.getReleaseDate())).toList();
