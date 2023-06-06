@@ -3,7 +3,7 @@ package com.albums.albumappbackend.dto;
 import com.albums.albumappbackend.entity.Album;
 import com.albums.albumappbackend.entity.Track;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 
@@ -13,7 +13,7 @@ public class AlbumDto {
     private String title;
     private String artist;
     private String cover;
-    private Date releaseDate;
+    private String releaseDate;
     private Set<Track> tracks;
 
     public AlbumDto() {
@@ -25,16 +25,16 @@ public class AlbumDto {
         this.title = album.getTitle();
         this.artist = album.getArtist();
         this.cover = album.getCover();
-        this.releaseDate = album.getReleaseDate();
+        this.releaseDate = album.getReleaseDate().toString();
         this.tracks = album.getTracks();
     }
 
-    public AlbumDto(Long id, String title, String artist, String cover, Date releaseDate) {
+    public AlbumDto(Long id, String title, String artist, String cover, LocalDate releaseDate) {
         this.id = id;
         this.title = title;
         this.artist = artist;
         this.cover = cover;
-        this.releaseDate = releaseDate;
+        this.releaseDate = releaseDate.toString();
     }
 
     public Long getId() {
@@ -53,7 +53,7 @@ public class AlbumDto {
         return cover;
     }
 
-    public Date getReleaseDate() {
+    public String getReleaseDate() {
         return releaseDate;
     }
 

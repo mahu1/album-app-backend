@@ -1,8 +1,10 @@
 package com.albums.albumappbackend.service;
 
+import com.albums.albumappbackend.dto.AlbumDto;
 import com.albums.albumappbackend.entity.Album;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface AlbumService {
@@ -22,4 +24,6 @@ public interface AlbumService {
     Album create(Album album);
 
     Album update(Long id, Album album);
+
+    Album patch(Long id, Map<String, Object> changes);
 }

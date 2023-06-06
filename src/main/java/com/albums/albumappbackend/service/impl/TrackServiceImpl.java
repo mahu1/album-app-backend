@@ -9,9 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -24,22 +28,24 @@ public class TrackServiceImpl implements TrackService {
     @Autowired
     AlbumDao albumDao;
 
-
     @Override
     public void delete(Long id) {
         Optional<Track> existingTrack = trackDao.findById(id);
         if (!existingTrack.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Track with id " + id + " does not exist");
         }
-        trackDao.deleteById(id);
 
         // Update track numbers
         Track track = existingTrack.get();
         Set<Track> tracks = track.getAlbum().getTracks();
         tracks.stream().filter(t -> t.getTrackNumber() > track.getTrackNumber()).forEach(t -> {
             t.setTrackNumber(t.getTrackNumber() - 1);
-            update(t.getId(), t);
+            Map<String, Object> changes = new HashMap();
+            changes.put("trackNumber", t.getTrackNumber());
+            patch(t.getId(), changes);
         });
+
+        trackDao.deleteById(id);
     }
 
     @Override
@@ -51,10 +57,10 @@ public class TrackServiceImpl implements TrackService {
         if (isValueMissing(track)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid request");
         }
+
         Album album = existingAlbum.get();
         track.setAlbum(album);
-        Track savedTrack = trackDao.save(track);
-        return savedTrack;
+        return trackDao.save(track);
     }
 
     @Override
@@ -66,6 +72,33 @@ public class TrackServiceImpl implements TrackService {
         if (isValueMissing(track)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid request");
         }
+
+        Track foundTrack = existingTrack.get();
+        foundTrack.setTitle(track.getTitle());
+        foundTrack.setLength(track.getLength());
+        foundTrack.setTrackNumber(track.getTrackNumber());
+        foundTrack.setAlbum(track.getAlbum());
+        return trackDao.save(track);
+    }
+
+    @Override
+    public Track patch(Long id, Map<String, Object> changes) {
+        Optional<Track> existingTrack = trackDao.findById(id);
+        if (!existingTrack.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Track with id " + id + " does not exist");
+        }
+
+        Track track = existingTrack.get();
+        changes.forEach((key, value) -> {
+            Field field = ReflectionUtils.findField(Track.class, key);
+            field.setAccessible(true);
+            ReflectionUtils.setField(field, track, value);
+        });
+
+        if (isValueMissing(track)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid request");
+        }
+
         return trackDao.save(track);
     }
 

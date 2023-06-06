@@ -7,7 +7,8 @@ public class TrackDto {
     private Long id;
     private String title;
     private String length;
-    private Long trackNumber;
+    private Integer trackNumber;
+    private Long albumId;
 
     public TrackDto() {
 
@@ -32,7 +33,11 @@ public class TrackDto {
         return length;
     }
 
-    public Long getTrackNumber() {
+    public Integer getTrackNumber() {
         return trackNumber;
+    }
+
+    public Long getAlbumId() {
+        return albumId;
     }
 }

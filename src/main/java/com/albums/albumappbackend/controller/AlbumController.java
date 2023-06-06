@@ -6,9 +6,12 @@ import com.albums.albumappbackend.service.impl.AlbumServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+
 
 @RestController
 public class AlbumController {
@@ -18,7 +21,7 @@ public class AlbumController {
 
     final private String TRACK_CHILDREN = "tracks";
 
-    @GetMapping("/album/{id}")
+    @GetMapping("/albums/{id}")
     public AlbumDto getById(@PathVariable("id") Long id, @RequestParam("_embed") Optional<String> children) {
         Optional<Album> album = albumService.findById(id);
         if (album.isPresent()) {
@@ -52,22 +55,32 @@ public class AlbumController {
         return buildResultDto(children, albums);
     }
 
-    @DeleteMapping("/album/{id}")
+    @DeleteMapping("/albums/{id}")
     public void delete(@PathVariable("id") Long id) {
         albumService.delete(id);
     }
 
-    @PostMapping("/album")
+    @PostMapping("/albums")
     public AlbumDto create(@RequestBody AlbumDto albumDto) {
         Album album = new Album(albumDto);
         Album createdAlbum = albumService.create(album);
         return new AlbumDto(createdAlbum.getId(), createdAlbum.getTitle(), createdAlbum.getArtist(), createdAlbum.getCover(), createdAlbum.getReleaseDate());
     }
 
-    @PutMapping("/album")
+    @PutMapping("/albums")
     public AlbumDto update(@PathVariable("id") Long id, @RequestBody AlbumDto albumDto) {
         Album album = new Album(albumDto);
         Album updatedAlbum = albumService.update(id, album);
+        return new AlbumDto(updatedAlbum.getId(), updatedAlbum.getTitle(), updatedAlbum.getArtist(), updatedAlbum.getCover(), updatedAlbum.getReleaseDate());
+    }
+
+    @PatchMapping("/albums/{id}")
+    public AlbumDto patch(@PathVariable(name = "id") Long id, @RequestBody Map<String, Object> changes) {
+        if (changes.keySet().contains("releaseDate")) {
+            String releaseDate = (String) changes.get("releaseDate");
+            changes.replace("releaseDate", releaseDate, LocalDate.parse(releaseDate));
+        }
+        Album updatedAlbum = albumService.patch(id, changes);
         return new AlbumDto(updatedAlbum.getId(), updatedAlbum.getTitle(), updatedAlbum.getArtist(), updatedAlbum.getCover(), updatedAlbum.getReleaseDate());
     }
 

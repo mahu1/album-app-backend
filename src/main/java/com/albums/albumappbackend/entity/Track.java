@@ -3,8 +3,6 @@ package com.albums.albumappbackend.entity;
 import com.albums.albumappbackend.dto.TrackDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "tracks")
@@ -19,10 +17,9 @@ public class Track {
     @Column(name = "length")
     private String length;
     @Column(name = "track_number")
-    private Long trackNumber;
+    private Integer trackNumber;
     @ManyToOne
     @JoinColumn(name = "album_id", referencedColumnName = "id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Album album;
 
     public Track() {
@@ -44,15 +41,23 @@ public class Track {
         return title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getLength() {
         return length;
     }
 
-    public Long getTrackNumber() {
+    public void setLength(String length) {
+        this.length = length;
+    }
+
+    public Integer getTrackNumber() {
         return trackNumber;
     }
 
-    public void setTrackNumber(Long trackNumber) {
+    public void setTrackNumber(Integer trackNumber) {
         this.trackNumber = trackNumber;
     }
 

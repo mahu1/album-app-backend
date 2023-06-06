@@ -2,6 +2,8 @@ package com.albums.albumappbackend.service;
 
 import com.albums.albumappbackend.entity.Track;
 
+import java.util.Map;
+
 
 public interface TrackService {
 
@@ -11,4 +13,5 @@ public interface TrackService {
 
     Track update(Long id, Track track);
 
+    Track patch(Long id, Map<String, Object> changes);
 }
