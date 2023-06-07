@@ -10,13 +10,13 @@ public class Track {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private Long id;
-    @Column(name = "title")
+    @Column(name = "title", nullable = false)
     private String title;
-    @Column(name = "length")
+    @Column(name = "length", nullable = false)
     private String length;
-    @Column(name = "track_number")
+    @Column(name = "track_number", nullable = false)
     private Integer trackNumber;
     @ManyToOne
     @JoinColumn(name = "album_id", referencedColumnName = "id")

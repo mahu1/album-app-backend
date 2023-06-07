@@ -14,13 +14,13 @@ public class Album
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
-    @Column(name = "title")
+    @Column(name = "title", nullable = false)
     private String title;
-    @Column(name = "artist")
+    @Column(name = "artist", nullable = false)
     private String artist;
-    @Column(name = "cover")
+    @Column(name = "cover", nullable = false)
     private String cover;
-    @Column(name = "release_date")
+    @Column(name = "release_date", nullable = false)
     private LocalDate releaseDate;
     @OneToMany(mappedBy="album")
     private Set<Track> tracks;

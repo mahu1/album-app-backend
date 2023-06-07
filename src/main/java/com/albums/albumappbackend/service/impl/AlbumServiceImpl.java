@@ -71,9 +71,6 @@ public class AlbumServiceImpl implements AlbumService {
         if (!result.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.FOUND, "Album already found: " + album.getArtist() + " - " + album.getTitle());
         }
-        if (isValueMissing(album)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid request");
-        }
         return albumDao.save(album);
     }
     private List<Album> findByArtistAndTitle(String artist, String title) {
@@ -89,9 +86,7 @@ public class AlbumServiceImpl implements AlbumService {
         if (!result.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.FOUND, "Album already found: " + album.getArtist() + " - " + album.getTitle());
         }
-        if (isValueMissing(album)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid request");
-        }
+
         Album foundAlbum = existingAlbum.get();
         foundAlbum.setTitle(album.getTitle());
         foundAlbum.setArtist(album.getArtist());
@@ -122,16 +117,7 @@ public class AlbumServiceImpl implements AlbumService {
             ReflectionUtils.setField(field, album, value);
         });
 
-        if (isValueMissing(album)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid request");
-        }
-
         return albumDao.save(album);
-    }
-
-    private boolean isValueMissing(Album album) {
-        return StringUtils.isEmpty(album.getTitle()) || StringUtils.isEmpty(album.getArtist())
-                || StringUtils.isEmpty(album.getCover()) || album.getReleaseDate() == null;
     }
 
 }

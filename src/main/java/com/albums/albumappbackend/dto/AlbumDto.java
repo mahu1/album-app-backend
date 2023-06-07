@@ -2,6 +2,7 @@ package com.albums.albumappbackend.dto;
 
 import com.albums.albumappbackend.entity.Album;
 import com.albums.albumappbackend.entity.Track;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -10,9 +11,13 @@ import java.util.Set;
 public class AlbumDto {
 
     private Long id;
+    @NotEmpty
     private String title;
+    @NotEmpty
     private String artist;
+    @NotEmpty
     private String cover;
+    @NotEmpty
     private String releaseDate;
     private Set<Track> tracks;
 

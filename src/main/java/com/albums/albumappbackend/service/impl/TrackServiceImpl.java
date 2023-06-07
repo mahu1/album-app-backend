@@ -54,9 +54,6 @@ public class TrackServiceImpl implements TrackService {
         if (!existingAlbum.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Album with id " + albumId + " does not exist");
         }
-        if (isValueMissing(track)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid request");
-        }
 
         Album album = existingAlbum.get();
         track.setAlbum(album);
@@ -69,10 +66,6 @@ public class TrackServiceImpl implements TrackService {
         if (!existingTrack.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Track with id " + id + " does not exist");
         }
-        if (isValueMissing(track)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid request");
-        }
-
         Track foundTrack = existingTrack.get();
         foundTrack.setTitle(track.getTitle());
         foundTrack.setLength(track.getLength());
@@ -95,16 +88,7 @@ public class TrackServiceImpl implements TrackService {
             ReflectionUtils.setField(field, track, value);
         });
 
-        if (isValueMissing(track)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid request");
-        }
-
         return trackDao.save(track);
-    }
-
-    private boolean isValueMissing(Track track) {
-        return StringUtils.isEmpty(track.getTitle()) || StringUtils.isEmpty(track.getLength())
-                || StringUtils.isEmpty(track.getTrackNumber());
     }
 
 }

@@ -1,12 +1,17 @@
 package com.albums.albumappbackend.dto;
 
 import com.albums.albumappbackend.entity.Track;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 public class TrackDto {
 
     private Long id;
+    @NotEmpty
     private String title;
+    @NotEmpty
     private String length;
+    @NotNull
     private Integer trackNumber;
     private Long albumId;
 

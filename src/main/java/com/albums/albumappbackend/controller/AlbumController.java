@@ -3,6 +3,7 @@ package com.albums.albumappbackend.controller;
 import com.albums.albumappbackend.dto.AlbumDto;
 import com.albums.albumappbackend.entity.Album;
 import com.albums.albumappbackend.service.impl.AlbumServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -61,14 +62,14 @@ public class AlbumController {
     }
 
     @PostMapping("/albums")
-    public AlbumDto create(@RequestBody AlbumDto albumDto) {
+    public AlbumDto create(@RequestBody @Valid AlbumDto albumDto) {
         Album album = new Album(albumDto);
         Album createdAlbum = albumService.create(album);
         return new AlbumDto(createdAlbum.getId(), createdAlbum.getTitle(), createdAlbum.getArtist(), createdAlbum.getCover(), createdAlbum.getReleaseDate());
     }
 
     @PutMapping("/albums")
-    public AlbumDto update(@PathVariable("id") Long id, @RequestBody AlbumDto albumDto) {
+    public AlbumDto update(@PathVariable("id") Long id, @Valid @RequestBody AlbumDto albumDto) {
         Album album = new Album(albumDto);
         Album updatedAlbum = albumService.update(id, album);
         return new AlbumDto(updatedAlbum.getId(), updatedAlbum.getTitle(), updatedAlbum.getArtist(), updatedAlbum.getCover(), updatedAlbum.getReleaseDate());

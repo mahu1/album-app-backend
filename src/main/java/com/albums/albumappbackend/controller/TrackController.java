@@ -4,6 +4,7 @@ import com.albums.albumappbackend.dto.TrackDto;
 import com.albums.albumappbackend.entity.Track;
 import com.albums.albumappbackend.service.impl.AlbumServiceImpl;
 import com.albums.albumappbackend.service.impl.TrackServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,14 +25,14 @@ public class TrackController {
     }
 
     @PostMapping("/tracks")
-    public TrackDto create(@RequestParam(value = "albumId") Long albumId, @RequestBody TrackDto trackDto) {
+    public TrackDto create(@RequestParam(value = "albumId") Long albumId, @RequestBody @Valid TrackDto trackDto) {
         Track track = new Track(trackDto);
         Track createdTrack = trackService.create(albumId, track);
         return new TrackDto(createdTrack);
     }
 
     @PutMapping("/tracks/{id}")
-    public TrackDto update(@PathVariable("id") Long id, @RequestBody TrackDto trackDto) {
+    public TrackDto update(@PathVariable("id") Long id, @RequestBody @Valid TrackDto trackDto) {
         Track track = new Track(trackDto);
         track.setAlbum(albumService.findById(trackDto.getAlbumId()).get());
         Track updatedTrack = trackService.update(id, track);
