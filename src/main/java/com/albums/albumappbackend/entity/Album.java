@@ -4,6 +4,7 @@ import com.albums.albumappbackend.dto.AlbumDto;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -34,6 +35,7 @@ public class Album
         this.artist = albumDto.getArtist();
         this.cover = albumDto.getCover();
         this.releaseDate = LocalDate.parse(albumDto.getReleaseDate());
+        this.tracks = new HashSet<>();
     }
 
     public Long getId() {
