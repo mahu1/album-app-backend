@@ -2,8 +2,8 @@ package com.albums.albumappbackend.controller;
 
 import com.albums.albumappbackend.dto.TrackDto;
 import com.albums.albumappbackend.entity.Track;
-import com.albums.albumappbackend.service.impl.AlbumServiceImpl;
-import com.albums.albumappbackend.service.impl.TrackServiceImpl;
+import com.albums.albumappbackend.service.AlbumService;
+import com.albums.albumappbackend.service.TrackService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +15,9 @@ import java.util.Map;
 public class TrackController {
 
     @Autowired
-    TrackServiceImpl trackService;
+    TrackService trackService;
     @Autowired
-    AlbumServiceImpl albumService;
+    AlbumService albumService;
 
     @DeleteMapping("/tracks/{id}")
     public void delete(@PathVariable("id") Long id) {

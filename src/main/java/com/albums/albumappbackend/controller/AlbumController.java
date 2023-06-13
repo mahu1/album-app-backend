@@ -2,7 +2,7 @@ package com.albums.albumappbackend.controller;
 
 import com.albums.albumappbackend.dto.AlbumDto;
 import com.albums.albumappbackend.entity.Album;
-import com.albums.albumappbackend.service.impl.AlbumServiceImpl;
+import com.albums.albumappbackend.service.AlbumService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +17,10 @@ import java.util.Optional;
 @RestController
 public class AlbumController {
 
-    @Autowired
-    AlbumServiceImpl albumService;
+    private final String TRACK_CHILDREN = "tracks";
 
-    final private String TRACK_CHILDREN = "tracks";
+    @Autowired
+    AlbumService albumService;
 
     @GetMapping("/albums/{id}")
     public AlbumDto getById(@PathVariable("id") Long id, @RequestParam("_embed") Optional<String> children) {
