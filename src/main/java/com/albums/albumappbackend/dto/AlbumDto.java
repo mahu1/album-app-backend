@@ -1,68 +1,37 @@
 package com.albums.albumappbackend.dto;
 
 import com.albums.albumappbackend.entity.Album;
-import com.albums.albumappbackend.entity.Track;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDate;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
-public class AlbumDto {
+public record AlbumDto(
+        long id,
 
-    private Long id;
-    @NotEmpty
-    private String title;
-    @NotEmpty
-    private String artist;
-    @NotEmpty
-    private String cover;
-    @NotEmpty
-    private String releaseDate;
-    private Set<Track> tracks;
+        @NotBlank
+        String title,
 
-    public AlbumDto() {
+        @NotBlank
+        String artist,
 
-    }
+        @NotBlank
+        String cover,
 
-    public AlbumDto(Album album) {
-        this.id = album.getId();
-        this.title = album.getTitle();
-        this.artist = album.getArtist();
-        this.cover = album.getCover();
-        this.releaseDate = album.getReleaseDate().toString();
-        this.tracks = album.getTracks();
-    }
+        @NotBlank
+        String releaseDate,
 
-    public AlbumDto(Long id, String title, String artist, String cover, LocalDate releaseDate) {
-        this.id = id;
-        this.title = title;
-        this.artist = artist;
-        this.cover = cover;
-        this.releaseDate = releaseDate.toString();
-    }
+        Set<TrackDto> tracks
 
-    public Long getId() {
-        return id;
-    }
+) {
+        public AlbumDto(long id, String title, String artist, String cover, LocalDate releaseDate) {
+            this(id, title, artist, cover, releaseDate.toString(), null);
+        }
 
-    public String getTitle() {
-        return title;
-    }
+        public AlbumDto(Album album) {
+            this(album.getId(), album.getTitle(), album.getArtist(), album.getCover(), album.getReleaseDate().toString(), album.getTracks().stream().map(t -> new TrackDto(t)).collect(Collectors.toSet()));
+        }
 
-    public String getArtist() {
-        return artist;
-    }
-
-    public String getCover() {
-        return cover;
-    }
-
-    public String getReleaseDate() {
-        return releaseDate;
-    }
-
-    public Set<Track> getTracks() {
-        return tracks;
-    }
 }

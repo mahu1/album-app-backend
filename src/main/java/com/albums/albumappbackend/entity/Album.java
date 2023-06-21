@@ -4,7 +4,6 @@ import com.albums.albumappbackend.dto.AlbumDto;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -13,32 +12,32 @@ public class Album
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private Long id;
-    @Column(name = "title", nullable = false)
+    @Column(nullable = false)
+    private long id;
+    @Column(nullable = false)
     private String title;
-    @Column(name = "artist", nullable = false)
+    @Column(nullable = false)
     private String artist;
-    @Column(name = "cover", nullable = false)
+    @Column(nullable = false)
     private String cover;
-    @Column(name = "release_date", nullable = false)
+    @Column(nullable = false)
     private LocalDate releaseDate;
     @OneToMany(mappedBy="album")
     private Set<Track> tracks;
 
-    public Album() {
+    Album() {
 
     }
+
     public Album(AlbumDto albumDto) {
-        this.id = albumDto.getId();
-        this.title = albumDto.getTitle();
-        this.artist = albumDto.getArtist();
-        this.cover = albumDto.getCover();
-        this.releaseDate = LocalDate.parse(albumDto.getReleaseDate());
-        this.tracks = new HashSet<>();
+        this.id = albumDto.id();
+        this.title = albumDto.title();
+        this.artist = albumDto.artist();
+        this.cover = albumDto.cover();
+        this.releaseDate = LocalDate.parse(albumDto.releaseDate());
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
@@ -79,5 +78,8 @@ public class Album
         return tracks;
     }
 
+    public void setTracks(Set<Track> tracks) {
+        this.tracks = tracks;
+    }
 }
 

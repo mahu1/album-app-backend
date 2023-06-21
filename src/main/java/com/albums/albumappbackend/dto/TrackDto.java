@@ -1,48 +1,28 @@
 package com.albums.albumappbackend.dto;
 
 import com.albums.albumappbackend.entity.Track;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 
-public class TrackDto {
+public record TrackDto(
 
-    private Long id;
-    @NotEmpty
-    private String title;
-    @NotEmpty
-    private String length;
-    @NotNull
-    private Integer trackNumber;
-    private Long albumId;
+        long id,
 
-    public TrackDto() {
+        @NotBlank
+        String title,
 
-    }
+        @NotBlank
+        String length,
 
-    public TrackDto(Track track) {
-        this.id = track.getId();
-        this.title = track.getTitle();
-        this.length = track.getLength();
-        this.trackNumber = track.getTrackNumber();
-    }
+        @Min(1)
+        int trackNumber,
 
-    public Long getId() {
-        return id;
-    }
+        @Min(1)
+        long albumId
 
-    public String getTitle() {
-        return title;
-    }
+) {
+        public TrackDto(Track track) {
+                this(track.getId(), track.getTitle(), track.getLength(), track.getTrackNumber(), track.getAlbum().getId());
+        }
 
-    public String getLength() {
-        return length;
-    }
-
-    public Integer getTrackNumber() {
-        return trackNumber;
-    }
-
-    public Long getAlbumId() {
-        return albumId;
-    }
 }

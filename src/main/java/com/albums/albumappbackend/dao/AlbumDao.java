@@ -3,23 +3,30 @@ package com.albums.albumappbackend.dao;
 import com.albums.albumappbackend.entity.Album;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
 public interface AlbumDao extends JpaRepository<Album, Long>  {
-    @Query("SELECT A FROM Album A WHERE LOWER(A.artist) LIKE LOWER(CONCAT('%', :artistToFind, '%')) ORDER BY A.releaseDate")
-    public List<Album> findByArtist(@Param("artistToFind") String artist);
+    @Query("SELECT a FROM Album a " +
+            "WHERE " +
+            "   LOWER(a.artist) = LOWER(:artist) AND " +
+            "   LOWER(a.title) = LOWER(:title) " +
+            "ORDER BY a.releaseDate")
+    public List<Album> findByArtistAndTitle(String artist, String title);
 
-    @Query("SELECT A FROM Album A WHERE LOWER(A.title) LIKE LOWER(CONCAT('%', :titleToFind, '%')) ORDER BY A.releaseDate")
-    public List<Album> findByTitle(@Param("titleToFind") String title);
+    @Query("SELECT a FROM Album a " +
+            "INNER JOIN tracks t ON a.id = t.album.id " +
+            "WHERE LOWER(t.title) LIKE LOWER(CONCAT('%', :trackTitle, '%')) " +
+            "ORDER BY a.releaseDate")
+    public List<Album> findByTrackTitle(String trackTitle);
 
-    @Query("SELECT A FROM Album A WHERE LOWER(A.artist) = LOWER(:artistToFind) AND LOWER(A.title) = LOWER(:titleToFind) ORDER BY A.releaseDate")
-    public List<Album> findByArtistAndTitle(@Param("artistToFind") String artist, @Param("titleToFind") String title);
-
-    @Query("SELECT A FROM Album A INNER JOIN tracks T ON A.id = T.album.id WHERE LOWER(T.title) LIKE LOWER(CONCAT('%', :trackToFind, '%')) ORDER BY A.releaseDate")
-    public List<Album> findByTrackTitle(@Param("trackToFind") String trackTitle);
+    @Query("SELECT a FROM Album a " +
+           "WHERE " +
+           "  (:artist IS NULL OR LOWER(a.artist) LIKE LOWER(CONCAT('%', :artist, '%'))) AND " +
+           "  (:title IS NULL OR LOWER(a.title) LIKE LOWER(CONCAT('%', :title, '%'))) " +
+           "ORDER BY a.releaseDate")
+    public List<Album> findAlbums(String artist, String title);
 
 }

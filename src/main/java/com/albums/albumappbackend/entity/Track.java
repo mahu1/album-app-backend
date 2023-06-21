@@ -9,17 +9,16 @@ import jakarta.persistence.*;
 public class Track {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private Long id;
-    @Column(name = "title", nullable = false)
+    @GeneratedValue
+    @Column(nullable = false)
+    private long id;
+    @Column(nullable = false)
     private String title;
-    @Column(name = "length", nullable = false)
+    @Column(nullable = false)
     private String length;
-    @Column(name = "track_number", nullable = false)
-    private Integer trackNumber;
+    @Column(nullable = false)
+    private int trackNumber;
     @ManyToOne
-    @JoinColumn(name = "album_id", referencedColumnName = "id")
     private Album album;
 
     public Track() {
@@ -27,17 +26,17 @@ public class Track {
     }
 
     public Track(TrackDto trackDto) {
-        this.id = trackDto.getId();
-        this.title = trackDto.getTitle();
-        this.length = trackDto.getLength();
-        this.trackNumber = trackDto.getTrackNumber();
+        this.id = trackDto.id();
+        this.title = trackDto.title();
+        this.length = trackDto.length();
+        this.trackNumber = trackDto.trackNumber();
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -57,11 +56,11 @@ public class Track {
         this.length = length;
     }
 
-    public Integer getTrackNumber() {
+    public int getTrackNumber() {
         return trackNumber;
     }
 
-    public void setTrackNumber(Integer trackNumber) {
+    public void setTrackNumber(int trackNumber) {
         this.trackNumber = trackNumber;
     }
 
