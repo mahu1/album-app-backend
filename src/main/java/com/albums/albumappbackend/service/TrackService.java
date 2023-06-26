@@ -53,7 +53,7 @@ public class TrackService {
     public TrackDto update(Long id, TrackDto trackDto) {
         Track track = trackDao.findById(id).orElseThrow();
         track.setTitle(trackDto.title());
-        track.setLength(trackDto.length());
+        track.setSeconds(trackDto.seconds());
         track.setTrackNumber(trackDto.trackNumber());
         Album album = albumDao.findById(trackDto.albumId()).orElseThrow();
         track.setAlbum(album);

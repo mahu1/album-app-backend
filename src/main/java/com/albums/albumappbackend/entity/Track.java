@@ -14,7 +14,7 @@ public class Track {
     @Column(nullable = false)
     private String title;
     @Column(nullable = false)
-    private String length;
+    private int seconds;
     @Column(nullable = false)
     private int trackNumber;
     @ManyToOne
@@ -27,7 +27,7 @@ public class Track {
     public Track(TrackDto trackDto) {
         this.id = trackDto.id();
         this.title = trackDto.title();
-        this.length = trackDto.length();
+        this.seconds = trackDto.seconds();
         this.trackNumber = trackDto.trackNumber();
     }
 
@@ -47,12 +47,12 @@ public class Track {
         this.title = title;
     }
 
-    public String getLength() {
-        return length;
+    public int getSeconds() {
+        return seconds;
     }
 
-    public void setLength(String length) {
-        this.length = length;
+    public void setSeconds(int seconds) {
+        this.seconds = seconds;
     }
 
     public int getTrackNumber() {

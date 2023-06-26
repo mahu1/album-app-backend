@@ -11,8 +11,8 @@ public record TrackDto(
         @NotBlank
         String title,
 
-        @NotBlank
-        String length,
+        @Min(1)
+        int seconds,
 
         @Min(1)
         int trackNumber,
@@ -22,7 +22,7 @@ public record TrackDto(
 
 ) {
         public TrackDto(Track track) {
-                this(track.getId(), track.getTitle(), track.getLength(), track.getTrackNumber(), track.getAlbum().getId());
+                this(track.getId(), track.getTitle(), track.getSeconds(), track.getTrackNumber(), track.getAlbum().getId());
         }
 
 }
