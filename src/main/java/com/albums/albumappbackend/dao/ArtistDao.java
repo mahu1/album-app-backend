@@ -1,11 +1,16 @@
 package com.albums.albumappbackend.dao;
 
-import com.albums.albumappbackend.entity.Track;
+import com.albums.albumappbackend.entity.Artist;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface TrackDao extends JpaRepository<Track, Long> {
+import java.util.List;
 
+@Repository
+public interface ArtistDao extends JpaRepository<Artist, Long> {
+    @Query("SELECT a FROM Artist a " +
+            "WHERE LOWER(a.title) = LOWER(:title) ")
+    public List<Artist> findByTitle(String title);
 
 }

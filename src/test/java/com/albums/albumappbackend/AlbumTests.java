@@ -1,6 +1,7 @@
 package com.albums.albumappbackend;
 
 import com.albums.albumappbackend.dao.AlbumDao;
+import com.albums.albumappbackend.dao.ArtistDao;
 import com.albums.albumappbackend.dao.TrackDao;
 import com.albums.albumappbackend.dto.AlbumDto;
 import com.albums.albumappbackend.entity.Album;
@@ -34,6 +35,9 @@ class AlbumTests {
     @Mock
     private TrackDao trackDao;
 
+    @Mock
+    private ArtistDao artistDao;
+
     private AlbumDto albumDto1;
     private Album album1;
     private AlbumDto albumDto2;
@@ -49,6 +53,8 @@ class AlbumTests {
 
     @Test
     public void testCreateAlbum() {
+        when(albumDao.findByArtistAndTitle(any(), any())).thenReturn(new ArrayList<>());
+        when(artistDao.findByTitle(any())).thenReturn(Arrays.asList(album1.getArtist()));
         when(albumDao.save(any(Album.class))).thenReturn(album1);
 
         AlbumDto newAlbum = albumService.create(albumDto1);

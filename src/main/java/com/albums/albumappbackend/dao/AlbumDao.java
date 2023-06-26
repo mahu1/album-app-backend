@@ -10,8 +10,9 @@ import java.util.List;
 @Repository
 public interface AlbumDao extends JpaRepository<Album, Long>  {
     @Query("SELECT a FROM Album a " +
+            "INNER JOIN Artist ar ON a.artist.id = ar.id " +
             "WHERE " +
-            "   LOWER(a.artist) = LOWER(:artist) AND " +
+            "   LOWER(ar.title) = LOWER(:artist) AND " +
             "   LOWER(a.title) = LOWER(:title) " +
             "ORDER BY a.releaseDate")
     public List<Album> findByArtistAndTitle(String artist, String title);
@@ -23,8 +24,9 @@ public interface AlbumDao extends JpaRepository<Album, Long>  {
     public List<Album> findByTrackTitle(String trackTitle);
 
     @Query("SELECT a FROM Album a " +
+           "INNER JOIN Artist ar ON a.artist.id = ar.id " +
            "WHERE " +
-           "  (:artist IS NULL OR LOWER(a.artist) LIKE LOWER(CONCAT('%', :artist, '%'))) AND " +
+           "  (:artist IS NULL OR LOWER(ar.title) LIKE LOWER(CONCAT('%', :artist, '%'))) AND " +
            "  (:title IS NULL OR LOWER(a.title) LIKE LOWER(CONCAT('%', :title, '%'))) " +
            "ORDER BY a.releaseDate")
     public List<Album> findAlbums(String artist, String title);

@@ -42,13 +42,13 @@ public class AlbumController {
 
     @PostMapping("/albums")
     public AlbumDto create(@RequestBody @Valid AlbumDto albumDto) {
-        return albumService.create(albumDto);
+            return albumService.create(albumDto);
     }
 
-    @PutMapping("/albums")
-    public AlbumDto update(@PathVariable("id") Long id,
-                           @Valid @RequestBody AlbumDto albumDto) {
-        return albumService.update(id, albumDto);
+    @PutMapping("/albums/{id}")
+    public AlbumDto put(@PathVariable("id") Long id,
+                        @RequestBody @Valid AlbumDto albumDto) {
+        return albumService.put(id, albumDto);
     }
 
     @PatchMapping("/albums/{id}")

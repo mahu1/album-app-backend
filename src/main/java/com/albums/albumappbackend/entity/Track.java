@@ -1,7 +1,6 @@
 package com.albums.albumappbackend.entity;
 
 import com.albums.albumappbackend.dto.TrackDto;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -9,7 +8,7 @@ import jakarta.persistence.*;
 public class Track {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
     private long id;
     @Column(nullable = false)
@@ -64,12 +63,10 @@ public class Track {
         this.trackNumber = trackNumber;
     }
 
-    @JsonIgnore
     public Album getAlbum() {
         return album;
     }
 
-    @JsonIgnore
     public void setAlbum(Album album) {
         this.album = album;
     }

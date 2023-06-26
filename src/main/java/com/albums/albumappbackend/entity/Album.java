@@ -17,13 +17,13 @@ public class Album
     @Column(nullable = false)
     private String title;
     @Column(nullable = false)
-    private String artist;
-    @Column(nullable = false)
     private String cover;
     @Column(nullable = false)
     private LocalDate releaseDate;
     @OneToMany(mappedBy="album")
     private Set<Track> tracks;
+    @ManyToOne
+    private Artist artist;
 
     Album() {
 
@@ -32,9 +32,9 @@ public class Album
     public Album(AlbumDto albumDto) {
         this.id = albumDto.id();
         this.title = albumDto.title();
-        this.artist = albumDto.artist();
         this.cover = albumDto.cover();
         this.releaseDate = LocalDate.parse(albumDto.releaseDate());
+        this.artist = new Artist(albumDto.artist());
     }
 
     public long getId() {
@@ -48,14 +48,6 @@ public class Album
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getArtist() {
-        return artist;
-    }
-
-    public void setArtist(String artist) {
-        this.artist = artist;
     }
 
     public String getCover() {
@@ -81,5 +73,15 @@ public class Album
     public void setTracks(Set<Track> tracks) {
         this.tracks = tracks;
     }
+
+    public Artist getArtist() {
+        return artist;
+    }
+
+    public void setArtist(Artist artist) {
+        this.artist = artist;
+    }
+
+
 }
 
