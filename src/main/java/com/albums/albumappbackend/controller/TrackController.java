@@ -25,12 +25,6 @@ public class TrackController {
         return trackService.create(albumId, trackDto);
     }
 
-    @PutMapping("/tracks/{id}")
-    public TrackDto update(@PathVariable("id") Long id,
-                           @RequestBody @Valid TrackDto trackDto) {
-        return trackService.update(id, trackDto);
-    }
-
     @PatchMapping("/tracks/{id}")
     public TrackDto patch(@PathVariable(name = "id") Long id,
                           @RequestBody Map<String, Object> changes) {

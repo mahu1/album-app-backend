@@ -50,17 +50,6 @@ public class TrackService {
     }
 
     @Transactional
-    public TrackDto update(Long id, TrackDto trackDto) {
-        Track track = trackDao.findById(id).orElseThrow();
-        track.setTitle(trackDto.title());
-        track.setSeconds(trackDto.seconds());
-        track.setTrackNumber(trackDto.trackNumber());
-        Album album = albumDao.findById(trackDto.albumId()).orElseThrow();
-        track.setAlbum(album);
-        return new TrackDto(track);
-    }
-
-    @Transactional
     public TrackDto patch(Long id, Map<String, Object> changes) {
         Track track = trackDao.findById(id).orElseThrow();
         changes.forEach((key, value) -> {

@@ -11,7 +11,7 @@ public record TrackDto(
         @NotBlank
         String title,
 
-        @Min(1)
+        @Min(0)
         int seconds,
 
         @Min(1)

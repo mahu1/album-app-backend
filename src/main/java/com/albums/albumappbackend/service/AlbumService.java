@@ -65,47 +65,43 @@ public class AlbumService {
         if (!result.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.FOUND, "Album already found: " + albumDto.artist() + " - " + albumDto.title());
         }
+        List<Artist> artists = artistDao.findByTitle(albumDto.artist().title());
+        if (artists.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Artist cannot found: " + albumDto.artist().title());
+        }
         Album album = new Album(albumDto);
-        setExistingOrCreateNewArtist(album, albumDto);
+        album.setArtist(artists.get(0));
         Album createdAlbum = albumDao.save(album);
         return new AlbumDto(createdAlbum.getId(), createdAlbum.getTitle(), createdAlbum.getArtist(), createdAlbum.getCover(), createdAlbum.getReleaseDate());
     }
 
-    private void setExistingOrCreateNewArtist(Album album, AlbumDto albumDto) {
-        List<Artist> artists = artistDao.findByTitle(albumDto.artist().title());
-        if (!artists.isEmpty()) {
-            album.setArtist(artists.get(0));
-        } else {
-            Artist artist = new Artist(albumDto.artist());
-            Artist createdArtist = artistDao.save(artist);
-            album.setArtist(createdArtist);
-        }
-    }
-
     @Transactional
     public AlbumDto put(Long id, AlbumDto albumDto) {
-        List<Album> result = albumDao.findByArtistAndTitle(albumDto.artist().title(), albumDto.title());
-        if (!result.isEmpty()) {
+        List<Album> albums = albumDao.findByArtistAndTitle(albumDto.artist().title(), albumDto.title());
+        if (!albums.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.FOUND, "Album already found: " + albumDto.artist() + " - " + albumDto.title());
         }
+        List<Artist> artists = artistDao.findByTitle(albumDto.artist().title());
+        if (artists.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Artist cannot found: " + albumDto.artist().title());
+        }
         Album album = albumDao.findById(id).orElseThrow();
-        setExistingOrCreateNewArtist(album, albumDto);
         album.setCover(albumDto.cover());
         album.setReleaseDate(LocalDate.parse(albumDto.releaseDate()));
+        album.setArtist(artists.get(0));
         return new AlbumDto(album.getId(), album.getTitle(), album.getArtist(), album.getCover(), album.getReleaseDate());
     }
 
     @Transactional
     public AlbumDto patch(Long id, Map<String, Object> changes) {
         Album album = albumDao.findById(id).orElseThrow();
-        //if (changes.get("artist") != null || changes.get("title") != null) {
-            //String artist = changes.get("artist") != null ? (String) changes.get("artist") : album.getArtist().getTitle();
-            //String title = changes.get("title") != null ? (String) changes.get("title") : album.getTitle();
-            //List<Album> result = albumDao.findByArtistAndTitle(artist, title);
-            //if (!result.isEmpty()) {
-                //throw new ResponseStatusException(HttpStatus.FOUND, "Album already found: " + title + " - " + artist);
-            //}
-        //}
+        if (changes.get("title") != null) {
+            String title = (String) changes.get("title");
+            List<Album> result = albumDao.findByArtistAndTitle(album.getArtist().getTitle(), title);
+            if (!result.isEmpty()) {
+                throw new ResponseStatusException(HttpStatus.FOUND, "Album already found: " + title + " - " + album.getArtist().getTitle());
+            }
+        }
 
         // Change release date type (String -> LocalData)
         if (changes.keySet().contains("releaseDate")) {
