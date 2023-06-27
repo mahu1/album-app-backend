@@ -3,7 +3,6 @@ package com.albums.albumappbackend.entity;
 import com.albums.albumappbackend.dto.ArtistDto;
 import jakarta.persistence.*;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -36,4 +35,7 @@ public class Artist {
         return title;
     }
 
+    public Set<Album> getAlbums() {
+        return albums;
+    }
 }

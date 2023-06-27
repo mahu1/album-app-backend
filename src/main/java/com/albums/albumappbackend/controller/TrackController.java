@@ -22,7 +22,7 @@ public class TrackController {
     @PostMapping("/tracks")
     public TrackDto create(@RequestParam(value = "albumId") Long albumId,
                            @RequestBody @Valid TrackDto trackDto) {
-        return  trackService.create(albumId, trackDto);
+        return trackService.create(albumId, trackDto);
     }
 
     @PutMapping("/tracks/{id}")

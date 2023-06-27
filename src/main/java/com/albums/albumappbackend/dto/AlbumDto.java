@@ -33,7 +33,7 @@ public record AlbumDto(
         }
 
         public AlbumDto(Album album) {
-            this(album.getId(), album.getTitle(), new ArtistDto(album.getArtist().getId(), album.getArtist().getTitle()), album.getCover(), album.getReleaseDate().toString(), album.getTracks().stream().map(t -> new TrackDto(t)).collect(Collectors.toSet()));
+            this(album.getId(), album.getTitle(), new ArtistDto(album.getArtist()), album.getCover(), album.getReleaseDate().toString(), album.getTracks().stream().map(t -> new TrackDto(t)).collect(Collectors.toSet()));
         }
 
 }
