@@ -5,6 +5,7 @@ import com.albums.albumappbackend.dao.ArtistDao;
 import com.albums.albumappbackend.dto.ArtistDto;
 import com.albums.albumappbackend.entity.Album;
 import com.albums.albumappbackend.entity.Artist;
+import com.albums.albumappbackend.enums.Children;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class ArtistService {
@@ -28,8 +28,9 @@ public class ArtistService {
     AlbumDao albumDao;
 
     @Transactional(readOnly = true)
-    public List<ArtistDto> findAll() {
-        return artistDao.findAll(Sort.by("title")).stream().map(a -> new ArtistDto(a)).collect(Collectors.toList());
+    public List<ArtistDto> findAll(Children children) {
+        List<Artist> artists = artistDao.findAll(Sort.by("title"));
+        return buildResultDto(artists, children);
     }
 
 
@@ -64,5 +65,13 @@ public class ArtistService {
         });
         return new ArtistDto(artist);
     }
+
+    private List<ArtistDto> buildResultDto(List<Artist> artists, Children children) {
+        if (children != null && children.equals(Children.ALBUMS)) {
+            return artists.stream().map(a -> new ArtistDto(a)).toList();
+        }
+        return artists.stream().map(a -> new ArtistDto(a.getId(), a.getTitle())).toList();
+    }
+
 }
 

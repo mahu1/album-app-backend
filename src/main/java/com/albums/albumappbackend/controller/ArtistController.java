@@ -1,7 +1,7 @@
 package com.albums.albumappbackend.controller;
 
 import com.albums.albumappbackend.dto.ArtistDto;
-import com.albums.albumappbackend.dto.TrackDto;
+import com.albums.albumappbackend.enums.Children;
 import com.albums.albumappbackend.service.ArtistService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +17,8 @@ public class ArtistController {
     ArtistService artistService;
 
     @GetMapping("/artists")
-    public List<ArtistDto> getArtists() {
-        return artistService.findAll();
+    public List<ArtistDto> getArtists(@RequestParam(name="_embed", required=false) Children children) {
+        return artistService.findAll(children);
     }
 
     @DeleteMapping("/artists/{id}")

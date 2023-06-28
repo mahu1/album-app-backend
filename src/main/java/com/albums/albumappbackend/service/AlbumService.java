@@ -1,10 +1,10 @@
 package com.albums.albumappbackend.service;
 
+import com.albums.albumappbackend.dao.AlbumDao;
 import com.albums.albumappbackend.dao.ArtistDao;
 import com.albums.albumappbackend.dao.TrackDao;
 import com.albums.albumappbackend.dto.AlbumDto;
 import com.albums.albumappbackend.entity.Album;
-import com.albums.albumappbackend.dao.AlbumDao;
 import com.albums.albumappbackend.entity.Artist;
 import com.albums.albumappbackend.enums.Children;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,9 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.lang.reflect.Field;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class AlbumService {
@@ -119,7 +121,7 @@ public class AlbumService {
     }
 
     private List<AlbumDto> buildResultDto(List<Album> albums, Children children) {
-        if (children != null && children.name().equals("TRACKS")) {
+        if (children != null && children.equals(Children.TRACKS)) {
             return albums.stream().map(a -> new AlbumDto(a)).toList();
         }
         return albums.stream().map(a -> new AlbumDto(a.getId(), a.getTitle(), a.getArtist(), a.getCover(), a.getReleaseDate())).toList();

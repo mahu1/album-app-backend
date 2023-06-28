@@ -3,7 +3,6 @@ package com.albums.albumappbackend;
 import com.albums.albumappbackend.dto.AlbumDto;
 import com.albums.albumappbackend.dto.ArtistDto;
 import com.albums.albumappbackend.dto.TrackDto;
-import com.albums.albumappbackend.entity.Artist;
 
 import java.time.LocalDate;
 import java.util.HashSet;
