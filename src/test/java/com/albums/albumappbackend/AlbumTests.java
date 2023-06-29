@@ -79,7 +79,7 @@ class AlbumTests {
     }
 
     @Test
-    public void testDuplicateAlbumException() {
+    public void testCreateDuplicateAlbumException() {
         when(albumDao.findByArtistAndTitle(any(), any())).thenReturn(Arrays.asList(album1));
 
         Assertions.assertThrows(ResponseStatusException.class, () -> {

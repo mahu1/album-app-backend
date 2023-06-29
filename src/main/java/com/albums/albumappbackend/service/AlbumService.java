@@ -88,6 +88,7 @@ public class AlbumService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Artist cannot found: " + albumDto.artist().title());
         }
         Album album = albumDao.findById(id).orElseThrow();
+        album.setTitle(albumDto.title());
         album.setCover(albumDto.cover());
         album.setReleaseDate(LocalDate.parse(albumDto.releaseDate()));
         album.setArtist(artists.get(0));

@@ -39,7 +39,7 @@ public class ArtistService {
         Artist artist = artistDao.findById(id).orElseThrow();
         List<Album> albums = albumDao.findAlbums(artist.getTitle(), null);
         if (!albums.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Artist is used with " + albums.size() + " albums");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Artist is used by " + albums.size() + " album(s)");
         }
         artistDao.deleteById(id);
     }
