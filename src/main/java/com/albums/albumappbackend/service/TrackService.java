@@ -31,9 +31,8 @@ public class TrackService {
         // Update track numbers
         Set<Track> tracks = track.getAlbum().getTracks();
         tracks.stream().filter(t -> t.getTrackNumber() > track.getTrackNumber()).forEach(t -> {
-            t.setTrackNumber(t.getTrackNumber() - 1);
             Map<String, Object> changes = new HashMap();
-            changes.put("trackNumber", t.getTrackNumber());
+            changes.put("trackNumber", t.getTrackNumber() - 1);
             patch(t.getId(), changes);
         });
 
