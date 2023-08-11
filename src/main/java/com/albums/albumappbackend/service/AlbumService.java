@@ -50,7 +50,7 @@ public class AlbumService {
 
     @Transactional(readOnly = true)
     public List<AlbumDto> findAll(Children children) {
-        List<Album> albums = albumDao.findAll(Sort.by(Sort.Direction.ASC, "releaseDate"));
+        List<Album> albums = albumDao.findAll(Sort.by(Sort.Direction.ASC, "releaseDate", "title"));
         return buildResultDto(albums, children);
     }
 

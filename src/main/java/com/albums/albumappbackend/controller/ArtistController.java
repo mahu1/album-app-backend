@@ -33,7 +33,7 @@ public class ArtistController {
 
     @PatchMapping("/artists/{id}")
     public ArtistDto patch(@PathVariable(name = "id") Long id,
-                          @RequestBody Map<String, Object> changes) {
+                           @RequestBody Map<String, Object> changes) {
         return artistService.patch(id, changes);
     }
 
