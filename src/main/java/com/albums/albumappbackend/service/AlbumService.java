@@ -38,12 +38,12 @@ public class AlbumService {
     }
 
     @Transactional(readOnly = true)
-    public List<AlbumDto> findAlbums(String artist, String albumTitle, String trackTitle, Children children) {
+    public List<AlbumDto> findAlbums(String artist, String albumTitle, String trackTitle, Integer rating, Children children) {
         List<Album> albums;
         if (trackTitle != null) {
-            albums = albumDao.findByTrackTitle(trackTitle);
+            albums = albumDao.findByTrackTitle(trackTitle, rating);
         } else {
-            albums = albumDao.findAlbums(artist, albumTitle);
+            albums = albumDao.findAlbums(artist, albumTitle, rating);
         }
         return buildResultDto(albums, children);
     }
@@ -74,7 +74,7 @@ public class AlbumService {
         Album album = new Album(albumDto);
         album.setArtist(artists.get(0));
         Album createdAlbum = albumDao.save(album);
-        return new AlbumDto(createdAlbum.getId(), createdAlbum.getTitle(), createdAlbum.getArtist(), createdAlbum.getCover(), createdAlbum.getReleaseDate());
+        return new AlbumDto(createdAlbum.getId(), createdAlbum.getTitle(), createdAlbum.getArtist(), createdAlbum.getCover(), createdAlbum.getReleaseDate(), createdAlbum.getRating());
     }
 
     @Transactional
@@ -91,8 +91,9 @@ public class AlbumService {
         album.setTitle(albumDto.title());
         album.setCover(albumDto.cover());
         album.setReleaseDate(LocalDate.parse(albumDto.releaseDate()));
+        album.setRating(albumDto.rating());
         album.setArtist(artists.get(0));
-        return new AlbumDto(album.getId(), album.getTitle(), album.getArtist(), album.getCover(), album.getReleaseDate());
+        return new AlbumDto(album.getId(), album.getTitle(), album.getArtist(), album.getCover(), album.getReleaseDate(), album.getRating());
     }
 
     @Transactional
@@ -118,14 +119,14 @@ public class AlbumService {
             ReflectionUtils.setField(field, album, value);
         });
 
-        return new AlbumDto(album.getId(), album.getTitle(), album.getArtist(), album.getTitle(), album.getReleaseDate());
+        return new AlbumDto(album.getId(), album.getTitle(), album.getArtist(), album.getTitle(), album.getReleaseDate(), album.getRating());
     }
 
     private List<AlbumDto> buildResultDto(List<Album> albums, Children children) {
         if (children != null && children.equals(Children.TRACKS)) {
             return albums.stream().map(a -> new AlbumDto(a)).toList();
         }
-        return albums.stream().map(a -> new AlbumDto(a.getId(), a.getTitle(), a.getArtist(), a.getCover(), a.getReleaseDate())).toList();
+        return albums.stream().map(a -> new AlbumDto(a.getId(), a.getTitle(), a.getArtist(), a.getCover(), a.getReleaseDate(), a.getRating())).toList();
     }
 
 }

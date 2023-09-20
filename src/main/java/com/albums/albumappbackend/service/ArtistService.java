@@ -37,7 +37,7 @@ public class ArtistService {
     @Transactional
     public void delete(Long id) {
         Artist artist = artistDao.findById(id).orElseThrow();
-        List<Album> albums = albumDao.findAlbums(artist.getTitle(), null);
+        List<Album> albums = albumDao.findAlbums(artist.getTitle(), null, null);
         if (!albums.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Artist is used by " + albums.size() + " album(s)");
         }

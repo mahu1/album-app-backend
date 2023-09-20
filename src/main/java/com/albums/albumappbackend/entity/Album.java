@@ -20,6 +20,7 @@ public class Album
     private String cover;
     @Column(nullable = false)
     private LocalDate releaseDate;
+    private Integer rating;
     @OneToMany(mappedBy="album")
     private Set<Track> tracks;
     @ManyToOne
@@ -34,6 +35,7 @@ public class Album
         this.title = albumDto.title();
         this.cover = albumDto.cover();
         this.releaseDate = LocalDate.parse(albumDto.releaseDate());
+        this.rating = albumDto.rating();
         this.artist = new Artist(albumDto.artist());
     }
 
@@ -64,6 +66,14 @@ public class Album
 
     public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
+    }
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
 
     public Set<Track> getTracks() {

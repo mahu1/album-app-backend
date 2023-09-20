@@ -65,7 +65,7 @@ class ArtistTests {
         Artist artist = album1.getArtist();
 
         when(artistDao.findById(any())).thenReturn(Optional.of(artist));
-        when(albumDao.findAlbums(artist.getTitle(), null)).thenReturn(Arrays.asList(album1));
+        when(albumDao.findAlbums(artist.getTitle(), null, null)).thenReturn(Arrays.asList(album1));
 
         Assertions.assertThrows(ResponseStatusException.class, () -> {
             artistService.delete(album1.getArtist().getId());

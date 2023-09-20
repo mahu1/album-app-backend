@@ -26,8 +26,9 @@ public class AlbumController {
     public List<AlbumDto> getAlbums(@RequestParam(name="artist", required=false) String artist,
                                     @RequestParam(name="albumtitle", required=false) String albumTitle,
                                     @RequestParam(name="tracktitle", required=false) String trackTitle,
+                                    @RequestParam(name="rating", required=false) Integer rating,
                                     @RequestParam(name="_embed", required=false) Children children) {
-        return albumService.findAlbums(artist, albumTitle, trackTitle, children);
+        return albumService.findAlbums(artist, albumTitle, trackTitle, rating, children);
     }
 
     @GetMapping("/")

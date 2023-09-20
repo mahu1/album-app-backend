@@ -71,7 +71,7 @@ class AlbumTests {
         albumList.add(album1);
         albumList.add(album2);
 
-        when(albumDao.findAll(Sort.by(Sort.Direction.ASC, "releaseDate"))).thenReturn(albumList);
+        when(albumDao.findAll(Sort.by(Sort.Direction.ASC, "releaseDate", "title"))).thenReturn(albumList);
 
         List<AlbumDto> albums = albumService.findAll(null);
         Assertions.assertNotNull(albums);

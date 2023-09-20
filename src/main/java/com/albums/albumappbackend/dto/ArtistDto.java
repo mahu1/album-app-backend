@@ -15,7 +15,7 @@ public record ArtistDto(
 ) {
 
         public ArtistDto(Artist artist) {
-                this(artist.getId(), artist.getTitle(), artist.getAlbums().stream().map(a -> new AlbumDto(a.getId(), a.getTitle(), a.getArtist(), a.getCover(), a.getReleaseDate())).collect(Collectors.toSet()));
+                this(artist.getId(), artist.getTitle(), artist.getAlbums().stream().map(a -> new AlbumDto(a.getId(), a.getTitle(), a.getArtist(), a.getCover(), a.getReleaseDate(), a.getRating())).collect(Collectors.toSet()));
         }
 
         public ArtistDto(long id, String title) {

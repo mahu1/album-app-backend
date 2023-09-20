@@ -171,7 +171,11 @@ INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1595, 'One Way Out (live)', 5, 1719, 298);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1594, 'Mountain Jam (live)', 4, 1719, 2018);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1593, 'Melissa', 3, 1719, 234);
-INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1596, 'Trouble No More (live)', 6, 1719, 223);
+INSERT INTO public.tracks (id, title, tr
+
+
+
+ack_number, album_id, seconds) VALUES (1596, 'Trouble No More (live)', 6, 1719, 223);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1597, 'Stand Back', 7, 1719, 204);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1598, 'Blue Sky', 8, 1719, 309);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1599, 'Little Martha', 9, 1719, 127);

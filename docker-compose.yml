@@ -1,26 +1,18 @@
+version: '3'
 services:
-  db:
+  app:
+    container_name: album-app-backend
+    image: album-app-backend
+    build: ./
     ports:
-      - 5432:5432
-    container_name: postgresql_container
+      - "8081:8080"
+    depends_on:
+      - postgresqldb
+  postgresqldb:
     image: postgres
+    ports:
+      - "5432:5432"
     environment:
       - POSTGRES_DB=albums
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_USER=postgres
-    volumes:
-      - C:\Work\exercise\album-app-backend\postgres_container_data:/var/lib/postgresql/data
-    restart: always
-  backend:
-    build: ./
-    container_name: album-app_container
-    image: album-app_container
-    ports:
-      - 8081:8080
-    environment:
-      db-url: jdbc:postgresql://db:5432/albums
-      db-username: postgres
-      db-password: postgres
-    depends_on:
-        - db
-    restart: always
