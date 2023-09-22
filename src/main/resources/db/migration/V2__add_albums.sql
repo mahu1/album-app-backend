@@ -1,31 +1,31 @@
-INSERT INTO public.artists (id, title) VALUES (702, 'Santana');
 INSERT INTO public.artists (id, title) VALUES (703, 'Frank Zappa');
 INSERT INTO public.artists (id, title) VALUES (704, 'Pink Floyd');
 INSERT INTO public.artists (id, title) VALUES (705, 'Iron & Wine');
 INSERT INTO public.artists (id, title) VALUES (706, 'King Crimson');
 INSERT INTO public.artists (id, title) VALUES (707, 'Nick Drake');
-INSERT INTO public.artists (id, title) VALUES (708, 'Bob Dylan');
 INSERT INTO public.artists (id, title) VALUES (709, 'The Allman Brothers Band');
+INSERT INTO public.artists (id, title) VALUES (702, 'Santana');
+INSERT INTO public.artists (id, title) VALUES (708, 'Bob Dylan');
 
-INSERT INTO public.albums (id, cover, release_date, title, artist_id) VALUES (1708, 'https://m.media-amazon.com/images/I/81IV6-2AkRL._AC_SX679_.jpg', '1971-10-30', 'Meddle', 704);
-INSERT INTO public.albums (id, cover, release_date, title, artist_id) VALUES (1709, 'https://m.media-amazon.com/images/I/51XdzcVR2bL._AC_.jpg', '2002-09-24', 'The Creek Drank the Cradle', 705);
-INSERT INTO public.albums (id, cover, release_date, title, artist_id) VALUES (1710, 'https://m.media-amazon.com/images/I/61Xzf+RI9sL._AC_.jpg', '2004-03-23', 'Our Endless Numbered Days', 705);
-INSERT INTO public.albums (id, cover, release_date, title, artist_id) VALUES (1711, 'https://m.media-amazon.com/images/I/71FM257lYjL._AC_SX679_.jpg', '1969-10-10', 'In the Court of the Crimson King', 706);
-INSERT INTO public.albums (id, cover, release_date, title, artist_id) VALUES (1712, 'https://m.media-amazon.com/images/I/41DmDi4tLAL._AC_.jpg', '1969-07-03', 'Five Leaves Left', 707);
-INSERT INTO public.albums (id, cover, release_date, title, artist_id) VALUES (1713, 'https://m.media-amazon.com/images/I/51S0rNLzOQL._AC_.jpg', '1971-03-05', 'Bryter Layter', 707);
-INSERT INTO public.albums (id, cover, release_date, title, artist_id) VALUES (1714, 'https://m.media-amazon.com/images/I/71TOz72D0JL._AC_SX679_.jpg', '1972-02-25', 'Pink Moon', 707);
-INSERT INTO public.albums (id, cover, release_date, title, artist_id) VALUES (1702, 'https://m.media-amazon.com/images/I/91BKYvMis1L._AC_SX679_.jpg', '1969-08-22', 'Santana ', 702);
-INSERT INTO public.albums (id, cover, release_date, title, artist_id) VALUES (1703, 'https://m.media-amazon.com/images/I/91pM5XNmlPL._AC_SX679_.jpg', '1970-09-23', 'Abraxas', 702);
-INSERT INTO public.albums (id, cover, release_date, title, artist_id) VALUES (1704, 'https://m.media-amazon.com/images/I/81WIboLOZ1L._AC_SX679_.jpg', '1970-09-01', '3', 702);
-INSERT INTO public.albums (id, cover, release_date, title, artist_id) VALUES (1705, 'https://m.media-amazon.com/images/I/71L9Wv9K1rL._AC_SX679_.jpg', '1969-10-10', 'Hot Rats', 703);
-INSERT INTO public.albums (id, cover, release_date, title, artist_id) VALUES (1715, 'https://m.media-amazon.com/images/I/81x8ZJqMm7L._AC_SX679_.jpg', '1975-01-20', 'Blood on the Tracks', 708);
-INSERT INTO public.albums (id, cover, release_date, title, artist_id) VALUES (1706, 'https://m.media-amazon.com/images/I/51npf8BoRwL._UX716_FMwebp_QL85_.jpg', '1977-01-21', 'Animals', 704);
-INSERT INTO public.albums (id, cover, release_date, title, artist_id) VALUES (1707, 'https://m.media-amazon.com/images/I/71m0ofUWYXL._AC_SX679_.jpg', '1975-09-12', 'Wish You Were Here', 704);
-INSERT INTO public.albums (id, cover, release_date, title, artist_id) VALUES (1716, 'https://m.media-amazon.com/images/I/71T1UAd9XFL._AC_SX679_.jpg', '1960-11-04', 'The Allman Brothers Band', 709);
-INSERT INTO public.albums (id, cover, release_date, title, artist_id) VALUES (1717, 'https://m.media-amazon.com/images/I/51ZKLWeDX0L._AC_.jpg', '1970-09-23', 'Idlewild South', 709);
-INSERT INTO public.albums (id, cover, release_date, title, artist_id) VALUES (1718, 'https://m.media-amazon.com/images/I/81TiDFSXXAL._AC_SX679_.jpg', '1971-07-06', 'At Fillmore East', 709);
-INSERT INTO public.albums (id, cover, release_date, title, artist_id) VALUES (1719, 'https://m.media-amazon.com/images/I/71bF-Z3JNCL._AC_SX679_.jpg', '1972-02-12', 'Eat a Peach', 709);
-INSERT INTO public.albums (id, cover, release_date, title, artist_id) VALUES (1720, 'https://m.media-amazon.com/images/I/61z6Esv-syL._AC_.jpg', '1973-08-01', 'Brothers and Sisters', 709);
+INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1704, 'https://m.media-amazon.com/images/I/81WIboLOZ1L._AC_SX679_.jpg', '1971-09-01', '3', 702, NULL);
+INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1702, 'https://m.media-amazon.com/images/I/91BKYvMis1L._AC_SX679_.jpg', '1969-08-22', 'Santana ', 702, 3);
+INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1713, 'https://m.media-amazon.com/images/I/51S0rNLzOQL._AC_.jpg', '1971-03-05', 'Bryter Layter', 707, 4);
+INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1712, 'https://m.media-amazon.com/images/I/41DmDi4tLAL._AC_.jpg', '1969-07-03', 'Five Leaves Left', 707, 4);
+INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1717, 'https://m.media-amazon.com/images/I/51ZKLWeDX0L._AC_.jpg', '1970-09-23', 'Idlewild South', 709, 3);
+INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1706, 'https://m.media-amazon.com/images/I/51npf8BoRwL._UX716_FMwebp_QL85_.jpg', '1977-01-21', 'Animals', 704, 4);
+INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1705, 'https://m.media-amazon.com/images/I/71L9Wv9K1rL._AC_SX679_.jpg', '1969-10-10', 'Hot Rats', 703, 4);
+INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1715, 'https://m.media-amazon.com/images/I/81x8ZJqMm7L._AC_SX679_.jpg', '1975-01-20', 'Blood on the Tracks', 708, 2);
+INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1718, 'https://m.media-amazon.com/images/I/81TiDFSXXAL._AC_SX679_.jpg', '1971-07-06', 'At Fillmore East', 709, 5);
+INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1711, 'https://m.media-amazon.com/images/I/71FM257lYjL._AC_SX679_.jpg', '1969-10-10', 'In the Court of the Crimson King', 706, 4);
+INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1708, 'https://m.media-amazon.com/images/I/81IV6-2AkRL._AC_SX679_.jpg', '1971-10-30', 'Meddle', 704, NULL);
+INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1709, 'https://m.media-amazon.com/images/I/51XdzcVR2bL._AC_.jpg', '2002-09-24', 'The Creek Drank the Cradle', 705, NULL);
+INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1710, 'https://m.media-amazon.com/images/I/61Xzf+RI9sL._AC_.jpg', '2004-03-23', 'Our Endless Numbered Days', 705, NULL);
+INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1714, 'https://m.media-amazon.com/images/I/71TOz72D0JL._AC_SX679_.jpg', '1972-02-25', 'Pink Moon', 707, NULL);
+INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1703, 'https://m.media-amazon.com/images/I/91pM5XNmlPL._AC_SX679_.jpg', '1970-09-23', 'Abraxas', 702, NULL);
+INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1707, 'https://m.media-amazon.com/images/I/71m0ofUWYXL._AC_SX679_.jpg', '1975-09-12', 'Wish You Were Here', 704, NULL);
+INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1716, 'https://m.media-amazon.com/images/I/71T1UAd9XFL._AC_SX679_.jpg', '1960-11-04', 'The Allman Brothers Band', 709, NULL);
+INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1719, 'https://m.media-amazon.com/images/I/71bF-Z3JNCL._AC_SX679_.jpg', '1972-02-12', 'Eat a Peach', 709, NULL);
+INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1720, 'https://m.media-amazon.com/images/I/61z6Esv-syL._AC_.jpg', '1973-08-01', 'Brothers and Sisters', 709, NULL);
 
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1482, 'Little Umbrellas', 4, 1705, 186);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1483, 'The Gumbo Variations', 5, 1705, 773);
@@ -39,7 +39,6 @@ INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1491, 'Welcome to the Machine', 2, 1707, 448);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1492, 'Have a Cigar', 3, 1707, 308);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1493, 'Wish You Were Here', 4, 1707, 335);
-INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1494, 'Shine On You Crazy Diamond" (Parts VI–IX)', 5, 1707, 748);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1495, 'One of These Days', 1, 1708, 357);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1496, 'A Pillow of Winds', 2, 1708, 313);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1497, 'Fearless', 3, 1708, 368);
@@ -73,9 +72,7 @@ INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1525, 'I Talk to the Wind', 2, 1711, 364);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1526, 'Epitaph (including "March for No Reason" and "Tomorrow and Tomorrow")', 3, 1711, 529);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1527, 'Moonchild (including "The Dream" and "The Illusion")', 4, 1711, 733);
-INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1528, 'The Court of the Crimson King (including "Return of the Fire Witch" and "Dance of the Puppets")', 5, 1711, 566);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1529, 'Time Has Told Me', 1, 1712, 267);
-INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1452, 'Waiting', 1, 1702, 243);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1453, 'Evil Ways', 2, 1702, 234);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1454, 'Shades of Time', 3, 1702, 194);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1455, 'Savor', 4, 1702, 167);
@@ -86,7 +83,6 @@ INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1460, 'Soul Sacrifice', 9, 1702, 397);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1461, 'Singing Winds, Crying Beasts', 1, 1703, 291);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1462, 'Black Magic Woman/Gypsy Queen', 2, 1703, 324);
-INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1463, 'Oye Cómo Va', 3, 1703, 257);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1464, 'Incident at Neshabur', 4, 1703, 298);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1465, 'Se a Cabó', 5, 1703, 170);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1466, 'Mother''s Daughter', 6, 1703, 265);
@@ -120,7 +116,6 @@ INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1542, 'One of These Things First', 4, 1713, 292);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1543, 'Hazey Jane 1', 5, 1713, 271);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1544, 'Bryter Layter', 6, 1713, 204);
-INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1545, 'Fly', 7, 1713, 180);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1546, 'Poor Boy', 8, 1713, 369);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1547, 'Northern Sky', 9, 1713, 227);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1548, 'Sunday', 10, 1713, 222);
@@ -132,6 +127,9 @@ INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1554, 'Things Behind the Sun', 6, 1714, 237);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1555, 'Know', 7, 1714, 146);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1556, 'Parasite', 8, 1714, 216);
+INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1528, 'The Court of the Crimson King (including "Return of the Fire Witch" and "Dance of the Puppets")', 5, 1711, 566);
+INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1463, 'Oye Cómo Va', 3, 1703, 257);
+INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1545, 'Fly', 7, 1713, 180);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1557, 'Free Ride', 9, 1714, 186);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1558, 'Harvest Breed', 10, 1714, 97);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1559, 'From the Morning', 11, 1714, 150);
@@ -171,11 +169,7 @@ INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1595, 'One Way Out (live)', 5, 1719, 298);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1594, 'Mountain Jam (live)', 4, 1719, 2018);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1593, 'Melissa', 3, 1719, 234);
-INSERT INTO public.tracks (id, title, tr
-
-
-
-ack_number, album_id, seconds) VALUES (1596, 'Trouble No More (live)', 6, 1719, 223);
+INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1596, 'Trouble No More (live)', 6, 1719, 223);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1597, 'Stand Back', 7, 1719, 204);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1598, 'Blue Sky', 8, 1719, 309);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1599, 'Little Martha', 9, 1719, 127);
@@ -186,3 +180,5 @@ INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1604, 'Southbound', 5, 1720, 311);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1605, 'Jessica', 6, 1720, 451);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1606, 'Pony Boy', 7, 1720, 351);
+INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1452, 'Waiting', 1, 1702, 243);
+INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1494, 'Shine On You Crazy Diamond (Parts VI–IX)', 5, 1707, 748);
