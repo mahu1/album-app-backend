@@ -23,7 +23,6 @@ public class TrackService {
     @Autowired
     AlbumDao albumDao;
 
-
     @Transactional
     public void delete(Long id) {
         Track track = trackDao.findById(id).orElseThrow();

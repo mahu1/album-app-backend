@@ -27,19 +27,21 @@ public class ArtistService {
     @Autowired
     AlbumDao albumDao;
 
+    @Autowired
+    AlbumService albumService;
+
     @Transactional(readOnly = true)
     public List<ArtistDto> findAll(Children children) {
         List<Artist> artists = artistDao.findAll(Sort.by("title"));
         return buildResultDto(artists, children);
     }
 
-
     @Transactional
     public void delete(Long id) {
         Artist artist = artistDao.findById(id).orElseThrow();
         List<Album> albums = albumDao.findAlbums(artist.getTitle(), null, null);
-        if (!albums.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Artist is used by " + albums.size() + " album(s)");
+        for (Album album : albums) {
+            albumService.delete(album.getId());
         }
         artistDao.deleteById(id);
     }
