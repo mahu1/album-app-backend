@@ -1,3 +1,29 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 15.3
+-- Dumped by pg_dump version 15.3
+
+-- Started on 2023-09-29 13:10:56
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 3367 (class 0 OID 98340)
+-- Dependencies: 217
+-- Data for Name: artists; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
 INSERT INTO public.artists (id, title) VALUES (703, 'Frank Zappa');
 INSERT INTO public.artists (id, title) VALUES (704, 'Pink Floyd');
 INSERT INTO public.artists (id, title) VALUES (705, 'Iron & Wine');
@@ -7,25 +33,87 @@ INSERT INTO public.artists (id, title) VALUES (709, 'The Allman Brothers Band');
 INSERT INTO public.artists (id, title) VALUES (702, 'Santana');
 INSERT INTO public.artists (id, title) VALUES (708, 'Bob Dylan');
 
+
+--
+-- TOC entry 3365 (class 0 OID 98334)
+-- Dependencies: 215
+-- Data for Name: albums; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
 INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1704, 'https://m.media-amazon.com/images/I/81WIboLOZ1L._AC_SX679_.jpg', '1971-09-01', '3', 702, NULL);
-INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1702, 'https://m.media-amazon.com/images/I/91BKYvMis1L._AC_SX679_.jpg', '1969-08-22', 'Santana ', 702, 3);
-INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1713, 'https://m.media-amazon.com/images/I/51S0rNLzOQL._AC_.jpg', '1971-03-05', 'Bryter Layter', 707, 4);
-INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1712, 'https://m.media-amazon.com/images/I/41DmDi4tLAL._AC_.jpg', '1969-07-03', 'Five Leaves Left', 707, 4);
-INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1717, 'https://m.media-amazon.com/images/I/51ZKLWeDX0L._AC_.jpg', '1970-09-23', 'Idlewild South', 709, 3);
-INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1706, 'https://m.media-amazon.com/images/I/51npf8BoRwL._UX716_FMwebp_QL85_.jpg', '1977-01-21', 'Animals', 704, 4);
-INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1705, 'https://m.media-amazon.com/images/I/71L9Wv9K1rL._AC_SX679_.jpg', '1969-10-10', 'Hot Rats', 703, 4);
-INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1715, 'https://m.media-amazon.com/images/I/81x8ZJqMm7L._AC_SX679_.jpg', '1975-01-20', 'Blood on the Tracks', 708, 2);
-INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1718, 'https://m.media-amazon.com/images/I/81TiDFSXXAL._AC_SX679_.jpg', '1971-07-06', 'At Fillmore East', 709, 5);
-INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1711, 'https://m.media-amazon.com/images/I/71FM257lYjL._AC_SX679_.jpg', '1969-10-10', 'In the Court of the Crimson King', 706, 4);
 INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1708, 'https://m.media-amazon.com/images/I/81IV6-2AkRL._AC_SX679_.jpg', '1971-10-30', 'Meddle', 704, NULL);
 INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1709, 'https://m.media-amazon.com/images/I/51XdzcVR2bL._AC_.jpg', '2002-09-24', 'The Creek Drank the Cradle', 705, NULL);
-INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1710, 'https://m.media-amazon.com/images/I/61Xzf+RI9sL._AC_.jpg', '2004-03-23', 'Our Endless Numbered Days', 705, NULL);
 INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1714, 'https://m.media-amazon.com/images/I/71TOz72D0JL._AC_SX679_.jpg', '1972-02-25', 'Pink Moon', 707, NULL);
 INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1703, 'https://m.media-amazon.com/images/I/91pM5XNmlPL._AC_SX679_.jpg', '1970-09-23', 'Abraxas', 702, NULL);
 INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1707, 'https://m.media-amazon.com/images/I/71m0ofUWYXL._AC_SX679_.jpg', '1975-09-12', 'Wish You Were Here', 704, NULL);
-INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1716, 'https://m.media-amazon.com/images/I/71T1UAd9XFL._AC_SX679_.jpg', '1960-11-04', 'The Allman Brothers Band', 709, NULL);
 INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1719, 'https://m.media-amazon.com/images/I/71bF-Z3JNCL._AC_SX679_.jpg', '1972-02-12', 'Eat a Peach', 709, NULL);
 INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1720, 'https://m.media-amazon.com/images/I/61z6Esv-syL._AC_.jpg', '1973-08-01', 'Brothers and Sisters', 709, NULL);
+INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1716, 'https://m.media-amazon.com/images/I/71T1UAd9XFL._AC_SX679_.jpg', '1960-11-04', 'The Allman Brothers Band', 709, NULL);
+INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1702, 'https://m.media-amazon.com/images/I/91BKYvMis1L._AC_SX679_.jpg', '1969-08-22', 'Santana ', 702, NULL);
+INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1711, 'https://m.media-amazon.com/images/I/71FM257lYjL._AC_SX679_.jpg', '1969-10-10', 'In the Court of the Crimson King', 706, NULL);
+INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1717, 'https://m.media-amazon.com/images/I/51ZKLWeDX0L._AC_.jpg', '1970-09-23', 'Idlewild South', 709, NULL);
+INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1715, 'https://m.media-amazon.com/images/I/81x8ZJqMm7L._AC_SX679_.jpg', '1975-01-20', 'Blood on the Tracks', 708, NULL);
+INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1706, 'https://m.media-amazon.com/images/I/51npf8BoRwL._UX716_FMwebp_QL85_.jpg', '1977-01-21', 'Animals', 704, NULL);
+INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1718, 'https://m.media-amazon.com/images/I/81TiDFSXXAL._AC_SX679_.jpg', '1971-07-06', 'At Fillmore East', 709, 5);
+INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1705, 'https://m.media-amazon.com/images/I/71L9Wv9K1rL._AC_SX679_.jpg', '1969-10-10', 'Hot Rats', 703, 5);
+INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1713, 'https://m.media-amazon.com/images/I/51S0rNLzOQL._AC_.jpg', '1971-03-05', 'Bryter Layter', 707, 4);
+INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1710, 'https://m.media-amazon.com/images/I/61Xzf+RI9sL._AC_.jpg', '2004-03-23', 'Our Endless Numbered Days', 705, 4);
+INSERT INTO public.albums (id, cover, release_date, title, artist_id, rating) VALUES (1712, 'https://m.media-amazon.com/images/I/41DmDi4tLAL._AC_.jpg', '1969-07-03', 'Five Leaves Left', 707, 4);
+
+
+--
+-- TOC entry 3371 (class 0 OID 98377)
+-- Dependencies: 221
+-- Data for Name: genres; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.genres (id, title) VALUES (1, 'rock');
+INSERT INTO public.genres (id, title) VALUES (2, 'pop');
+INSERT INTO public.genres (id, title) VALUES (3, 'jazz');
+INSERT INTO public.genres (id, title) VALUES (4, 'blues');
+INSERT INTO public.genres (id, title) VALUES (5, 'country');
+INSERT INTO public.genres (id, title) VALUES (6, 'classical');
+INSERT INTO public.genres (id, title) VALUES (7, 'folk');
+
+
+--
+-- TOC entry 3372 (class 0 OID 98442)
+-- Dependencies: 222
+-- Data for Name: albums_genres; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.albums_genres (album_id, genre_id) VALUES (1704, 1);
+INSERT INTO public.albums_genres (album_id, genre_id) VALUES (1708, 1);
+INSERT INTO public.albums_genres (album_id, genre_id) VALUES (1719, 1);
+INSERT INTO public.albums_genres (album_id, genre_id) VALUES (1719, 4);
+INSERT INTO public.albums_genres (album_id, genre_id) VALUES (1714, 7);
+INSERT INTO public.albums_genres (album_id, genre_id) VALUES (1720, 1);
+INSERT INTO public.albums_genres (album_id, genre_id) VALUES (1720, 4);
+INSERT INTO public.albums_genres (album_id, genre_id) VALUES (1715, 7);
+INSERT INTO public.albums_genres (album_id, genre_id) VALUES (1707, 1);
+INSERT INTO public.albums_genres (album_id, genre_id) VALUES (1705, 1);
+INSERT INTO public.albums_genres (album_id, genre_id) VALUES (1705, 3);
+INSERT INTO public.albums_genres (album_id, genre_id) VALUES (1706, 1);
+INSERT INTO public.albums_genres (album_id, genre_id) VALUES (1709, 7);
+INSERT INTO public.albums_genres (album_id, genre_id) VALUES (1710, 7);
+INSERT INTO public.albums_genres (album_id, genre_id) VALUES (1716, 4);
+INSERT INTO public.albums_genres (album_id, genre_id) VALUES (1716, 1);
+INSERT INTO public.albums_genres (album_id, genre_id) VALUES (1712, 7);
+INSERT INTO public.albums_genres (album_id, genre_id) VALUES (1702, 1);
+INSERT INTO public.albums_genres (album_id, genre_id) VALUES (1711, 1);
+INSERT INTO public.albums_genres (album_id, genre_id) VALUES (1703, 1);
+INSERT INTO public.albums_genres (album_id, genre_id) VALUES (1717, 1);
+INSERT INTO public.albums_genres (album_id, genre_id) VALUES (1717, 4);
+INSERT INTO public.albums_genres (album_id, genre_id) VALUES (1713, 7);
+INSERT INTO public.albums_genres (album_id, genre_id) VALUES (1718, 4);
+INSERT INTO public.albums_genres (album_id, genre_id) VALUES (1718, 1);
+
+
+--
+-- TOC entry 3369 (class 0 OID 98346)
+-- Dependencies: 219
+-- Data for Name: tracks; Type: TABLE DATA; Schema: public; Owner: postgres
+--
 
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1482, 'Little Umbrellas', 4, 1705, 186);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1483, 'The Gumbo Variations', 5, 1705, 773);
@@ -182,3 +270,38 @@ INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1606, 'Pony Boy', 7, 1720, 351);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1452, 'Waiting', 1, 1702, 243);
 INSERT INTO public.tracks (id, title, track_number, album_id, seconds) VALUES (1494, 'Shine On You Crazy Diamond (Parts VI–IX)', 5, 1707, 748);
+
+
+--
+-- TOC entry 3378 (class 0 OID 0)
+-- Dependencies: 216
+-- Name: albums_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.albums_seq', 2451, true);
+
+
+--
+-- TOC entry 3379 (class 0 OID 0)
+-- Dependencies: 218
+-- Name: artists_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.artists_seq', 1001, true);
+
+
+--
+-- TOC entry 3380 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: tracks_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.tracks_seq', 2201, true);
+
+
+-- Completed on 2023-09-29 13:10:56
+
+--
+-- PostgreSQL database dump complete
+--
+

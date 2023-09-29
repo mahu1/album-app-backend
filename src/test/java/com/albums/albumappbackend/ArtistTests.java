@@ -6,7 +6,6 @@ import com.albums.albumappbackend.dto.AlbumDto;
 import com.albums.albumappbackend.dto.ArtistDto;
 import com.albums.albumappbackend.entity.Album;
 import com.albums.albumappbackend.entity.Artist;
-import com.albums.albumappbackend.entity.Track;
 import com.albums.albumappbackend.service.AlbumService;
 import com.albums.albumappbackend.service.ArtistService;
 import org.junit.jupiter.api.Assertions;
@@ -21,7 +20,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Arrays;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -51,8 +49,7 @@ class ArtistTests {
     void init() {
         albumDto1 = TestsData.getAlbum1();
         album1 = new Album(albumDto1);
-        album1.setTracks(albumDto1.tracks().stream().map(t -> new Track(t)).collect(Collectors.toSet()));
-        album1.getTracks().forEach(t -> t.setAlbum(album1));
+        album1.setArtist(new Artist(albumDto1.artist()));
     }
 
     @Test
@@ -62,7 +59,7 @@ class ArtistTests {
         when(artistDao.findByTitle(any())).thenReturn(Arrays.asList(artist));
 
         Assertions.assertThrows(ResponseStatusException.class, () -> {
-            artistService.create(new ArtistDto(artist.getId(), artist.getTitle()));
+            artistService.create(new ArtistDto(artist.getId(), artist.getTitle(), null));
         });
     }
 
@@ -71,7 +68,7 @@ class ArtistTests {
         Artist artist = album1.getArtist();
 
         when(artistDao.findById(any())).thenReturn(Optional.of(artist));
-        when(albumDao.findAlbums(any(), any(), any())).thenReturn(Arrays.asList(album1));
+        when(albumDao.findAlbums(any(), any(), any(), any())).thenReturn(Arrays.asList(album1));
         doNothing().when(albumService).delete(album1.getId());
         doNothing().when(artistDao).deleteById(artist.getId());
 

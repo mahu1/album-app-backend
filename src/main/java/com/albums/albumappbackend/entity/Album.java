@@ -25,6 +25,12 @@ public class Album
     private Set<Track> tracks;
     @ManyToOne
     private Artist artist;
+    @ManyToMany
+    @JoinTable(
+            name = "albums_genres",
+            joinColumns = @JoinColumn(name = "album_id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id"))
+    private Set<Genre> genres;
 
     Album() {
 
@@ -36,7 +42,6 @@ public class Album
         this.cover = albumDto.cover();
         this.releaseDate = LocalDate.parse(albumDto.releaseDate());
         this.rating = albumDto.rating();
-        this.artist = new Artist(albumDto.artist());
     }
 
     public long getId() {
@@ -92,6 +97,12 @@ public class Album
         this.artist = artist;
     }
 
+    public Set<Genre> getGenres() {
+        return genres;
+    }
 
+    public void setGenres(Set<Genre> genres) {
+        this.genres = genres;
+    }
 }
 

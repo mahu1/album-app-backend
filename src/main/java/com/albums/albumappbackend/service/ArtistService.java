@@ -39,7 +39,7 @@ public class ArtistService {
     @Transactional
     public void delete(Long id) {
         Artist artist = artistDao.findById(id).orElseThrow();
-        List<Album> albums = albumDao.findAlbums(artist.getTitle(), null, null);
+        List<Album> albums = albumDao.findAlbums(artist.getTitle(), null, null, null);
         for (Album album : albums) {
             albumService.delete(album.getId());
         }
@@ -54,7 +54,7 @@ public class ArtistService {
         }
         Artist artist = new Artist(artistDto);
         Artist savedArtist = artistDao.save(artist);
-        return new ArtistDto(savedArtist.getId(), savedArtist.getTitle());
+        return new ArtistDto(savedArtist.getId(), savedArtist.getTitle(), null);
     }
 
     @Transactional
@@ -72,7 +72,7 @@ public class ArtistService {
         if (children != null && children.equals(Children.ALBUMS)) {
             return artists.stream().map(a -> new ArtistDto(a)).toList();
         }
-        return artists.stream().map(a -> new ArtistDto(a.getId(), a.getTitle())).toList();
+        return artists.stream().map(a -> new ArtistDto(a.getId(), a.getTitle(), null)).toList();
     }
 
 }

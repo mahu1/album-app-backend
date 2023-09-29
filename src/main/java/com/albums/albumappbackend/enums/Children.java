@@ -1,5 +1,5 @@
 package com.albums.albumappbackend.enums;
 
 public enum Children {
-    TRACKS, ALBUMS
+    TRACKS, ALBUMS, GENRES
 }

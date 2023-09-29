@@ -39,8 +39,8 @@ public class TrackService {
     }
 
     @Transactional
-    public TrackDto create(Long albumId, TrackDto trackDto) {
-        Album album = albumDao.findById(albumId).orElseThrow();
+    public TrackDto create(TrackDto trackDto) {
+        Album album = albumDao.findById(trackDto.album().id()).orElseThrow();
         Track track = new Track(trackDto);
         track.setAlbum(album);
         Track savedTrack = trackDao.save(track);

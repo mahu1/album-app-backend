@@ -21,17 +21,19 @@ public interface AlbumDao extends JpaRepository<Album, Long>  {
             "INNER JOIN tracks t ON a.id = t.album.id " +
             "WHERE " +
             "  LOWER(t.title) LIKE LOWER(CONCAT('%', :trackTitle, '%')) AND " +
-            "  (:rating IS NULL OR a.rating >= :rating) " +
+            "  (:rating IS NULL OR a.rating >= :rating) AND " +
+            "  (COALESCE(:genres) IS NULL OR EXISTS (SELECT g FROM Genre g WHERE g.title IN (:genres) AND g MEMBER OF a.genres)) " +
             "ORDER BY a.releaseDate, a.title")
-    public List<Album> findByTrackTitle(String trackTitle, Integer rating);
+    public List<Album> findByTrackTitle(String trackTitle, Integer rating, List<String> genres);
 
     @Query("SELECT a FROM Album a " +
            "INNER JOIN Artist ar ON a.artist.id = ar.id " +
            "WHERE " +
            "  (:artist IS NULL OR LOWER(ar.title) LIKE LOWER(CONCAT('%', :artist, '%'))) AND " +
            "  (:title IS NULL OR LOWER(a.title) LIKE LOWER(CONCAT('%', :title, '%'))) AND " +
-           "  (:rating IS NULL OR a.rating >= :rating) " +
+           "  (:rating IS NULL OR a.rating >= :rating) AND " +
+            " (COALESCE(:genres) IS NULL OR EXISTS (SELECT g FROM Genre g WHERE g.title IN (:genres) AND g MEMBER OF a.genres)) " +
            "ORDER BY a.releaseDate, a.title")
-    public List<Album> findAlbums(String artist, String title, Integer rating);
+    public List<Album> findAlbums(String artist, String title, Integer rating, List<String> genres);
 
 }

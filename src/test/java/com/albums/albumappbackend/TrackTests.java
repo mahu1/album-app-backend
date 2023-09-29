@@ -32,6 +32,7 @@ class TrackTests {
     private TrackDao trackDao;
 
     private AlbumDto albumDto1;
+
     private Album album1;
 
     @BeforeEach

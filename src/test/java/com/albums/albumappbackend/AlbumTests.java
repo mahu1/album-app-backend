@@ -5,6 +5,7 @@ import com.albums.albumappbackend.dao.ArtistDao;
 import com.albums.albumappbackend.dao.TrackDao;
 import com.albums.albumappbackend.dto.AlbumDto;
 import com.albums.albumappbackend.entity.Album;
+import com.albums.albumappbackend.entity.Artist;
 import com.albums.albumappbackend.service.AlbumService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,10 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -42,16 +40,21 @@ class AlbumTests {
     private ArtistDao artistDao;
 
     private AlbumDto albumDto1;
+
     private Album album1;
+
     private AlbumDto albumDto2;
+
     private Album album2;
 
     @BeforeEach
     void init() {
         albumDto1 = TestsData.getAlbum1();
         album1 = new Album(albumDto1);
+        album1.setArtist(new Artist(albumDto1.artist()));
         albumDto2 = TestsData.getAlbum2();
         album2 = new Album(albumDto2);
+        album2.setArtist(new Artist(albumDto2.artist()));
     }
 
     @Test
