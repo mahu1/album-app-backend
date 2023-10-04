@@ -56,7 +56,7 @@ class ArtistTests {
     public void testCreateDuplicateArtistException() {
         Artist artist = album1.getArtist();
 
-        when(artistDao.findByTitle(any())).thenReturn(Arrays.asList(artist));
+        when(artistDao.findByArtistTitle(any())).thenReturn(Arrays.asList(artist));
 
         Assertions.assertThrows(ResponseStatusException.class, () -> {
             artistService.create(new ArtistDto(artist.getId(), artist.getTitle(), null));
@@ -68,7 +68,7 @@ class ArtistTests {
         Artist artist = album1.getArtist();
 
         when(artistDao.findById(any())).thenReturn(Optional.of(artist));
-        when(albumDao.findAlbums(any(), any(), any(), any())).thenReturn(Arrays.asList(album1));
+        when(albumDao.findBy(any(), any(), any(), any())).thenReturn(Arrays.asList(album1));
         doNothing().when(albumService).delete(album1.getId());
         doNothing().when(artistDao).deleteById(artist.getId());
 

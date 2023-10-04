@@ -1,10 +1,11 @@
 package com.albums.albumappbackend;
 
 import com.albums.albumappbackend.dao.GenreDao;
+import com.albums.albumappbackend.dto.AlbumDto;
 import com.albums.albumappbackend.dto.GenreDto;
 import com.albums.albumappbackend.entity.Album;
+import com.albums.albumappbackend.entity.Artist;
 import com.albums.albumappbackend.entity.Genre;
-import com.albums.albumappbackend.enums.Children;
 import com.albums.albumappbackend.service.GenreService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,10 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Sort;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.mockito.Mockito.*;
 
@@ -45,16 +43,19 @@ class GenreTests {
     void init() {
         genreDto1 = TestsData.getGenre1();
         genre1 = new Genre(genreDto1);
-        Set<Album> genre1albums = new HashSet<>();
-        genre1albums.add(new Album(TestsData.getAlbum1()));
-        genre1.setAlbums(genre1albums);
+        AlbumDto albumDto1 = TestsData.getAlbum1();
+        Album album1 = new Album(albumDto1);
+        album1.setArtist(new Artist(albumDto1.artist()));
+        Set<Album> genre1Albums = new HashSet<>(Arrays.asList(album1));
+        genre1.setAlbums(genre1Albums);
 
-        genreDto2 = TestsData.getGenre1();
+        genreDto2 = TestsData.getGenre2();
         genre2 = new Genre(genreDto2);
-        Set<Album> genre2albums = new HashSet<>();
-        genre2albums.add(new Album(TestsData.getAlbum1()));
-        genre2albums.add(new Album(TestsData.getAlbum2()));
-        genre2.setAlbums(genre2albums);
+        AlbumDto albumDto2 = TestsData.getAlbum2();
+        Album album2 = new Album(albumDto2);
+        album2.setArtist(new Artist(albumDto2.artist()));
+        Set<Album> genre2Albums = new HashSet<>(Arrays.asList(album1, album2));
+        genre2.setAlbums(genre2Albums);
     }
 
     @Test
@@ -65,7 +66,7 @@ class GenreTests {
 
         when(genreDao.findAll(Sort.by("title"))).thenReturn(genreList);
 
-        List<GenreDto> genres = genreService.findAll(Children.ALBUMS);
+        List<GenreDto> genres = genreService.findAll();
         Assertions.assertNotNull(genres);
         Assertions.assertEquals(2, genres.size());
 

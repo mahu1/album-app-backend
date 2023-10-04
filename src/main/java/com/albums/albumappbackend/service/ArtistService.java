@@ -5,7 +5,6 @@ import com.albums.albumappbackend.dao.ArtistDao;
 import com.albums.albumappbackend.dto.ArtistDto;
 import com.albums.albumappbackend.entity.Album;
 import com.albums.albumappbackend.entity.Artist;
-import com.albums.albumappbackend.enums.Children;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -31,15 +30,15 @@ public class ArtistService {
     AlbumService albumService;
 
     @Transactional(readOnly = true)
-    public List<ArtistDto> findAll(Children children) {
+    public List<ArtistDto> findAll() {
         List<Artist> artists = artistDao.findAll(Sort.by("title"));
-        return buildResultDto(artists, children);
+        return artists.stream().map(a -> new ArtistDto(a)).toList();
     }
 
     @Transactional
     public void delete(Long id) {
         Artist artist = artistDao.findById(id).orElseThrow();
-        List<Album> albums = albumDao.findAlbums(artist.getTitle(), null, null, null);
+        List<Album> albums = albumDao.findBy(artist.getTitle(), null, null, null);
         for (Album album : albums) {
             albumService.delete(album.getId());
         }
@@ -48,7 +47,7 @@ public class ArtistService {
 
     @Transactional
     public ArtistDto create(ArtistDto artistDto) {
-        List<Artist> artists = artistDao.findByTitle(artistDto.title());
+        List<Artist> artists = artistDao.findByArtistTitle(artistDto.title());
         if (!artists.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.FOUND, "Artist already found: " + artistDto.title());
         }
@@ -66,13 +65,6 @@ public class ArtistService {
             ReflectionUtils.setField(field, artist, value);
         });
         return new ArtistDto(artist);
-    }
-
-    private List<ArtistDto> buildResultDto(List<Artist> artists, Children children) {
-        if (children != null && children.equals(Children.ALBUMS)) {
-            return artists.stream().map(a -> new ArtistDto(a)).toList();
-        }
-        return artists.stream().map(a -> new ArtistDto(a.getId(), a.getTitle(), null)).toList();
     }
 
 }

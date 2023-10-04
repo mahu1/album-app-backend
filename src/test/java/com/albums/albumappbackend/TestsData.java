@@ -11,21 +11,21 @@ import java.util.HashSet;
 public class TestsData {
 
     public static AlbumDto getAlbum1() {
-        AlbumDto albumDto1 = new AlbumDto(1L, "Our Endless Numbered Days", new ArtistDto(1L, "Iron & Wine", new HashSet<>()), "https://m.media-amazon.com/images/I/61Xzf+RI9sL._AC_.jpg", LocalDate.of(2004, 3, 23).toString(), null, new HashSet<>(), new HashSet<>());
-        TrackDto album1Track1 = new TrackDto(1L, "On Your Wings", 233, 1, null);
+        AlbumDto albumDto1 = new AlbumDto(1L, "Our Endless Numbered Days", new ArtistDto(1L, "Iron & Wine", new HashSet<>()), "https://m.media-amazon.com/images/I/61Xzf+RI9sL._AC_.jpg", LocalDate.of(2004, 3, 23), null, new HashSet<>(), new HashSet<>());
+        TrackDto album1Track1 = new TrackDto(1L, "On Your Wings", 233, 1, albumDto1.id());
         albumDto1.tracks().add(album1Track1);
-        TrackDto album1Track2 = new TrackDto(2L, "Naked as We Came", 153, 2, null);
+        TrackDto album1Track2 = new TrackDto(2L, "Naked as We Came", 153, 2, albumDto1.id());
         albumDto1.tracks().add(album1Track2);
-        TrackDto album1Track3 = new TrackDto(3L, "Cinder and Smoke", 344, 3, null);
+        TrackDto album1Track3 = new TrackDto(3L, "Cinder and Smoke", 344, 3, albumDto1.id());
         albumDto1.tracks().add(album1Track3);
         return albumDto1;
     }
 
     public static AlbumDto getAlbum2() {
-        AlbumDto albumDto2 = new AlbumDto(2L, "Abbey Road", new ArtistDto(2L, "The Beatles", new HashSet<>()), "https://m.media-amazon.com/images/I/A19M5TR8iYL._AC_SX679_.jpg", LocalDate.of(1969, 9, 26).toString(), null, new HashSet<>(), new HashSet<>());
-        TrackDto album2Track1 = new TrackDto(4L, "Come Together", 259, 1, null);
+        AlbumDto albumDto2 = new AlbumDto(2L, "Abbey Road", new ArtistDto(2L, "The Beatles", new HashSet<>()), "https://m.media-amazon.com/images/I/A19M5TR8iYL._AC_SX679_.jpg", LocalDate.of(1969, 9, 26), null, new HashSet<>(), new HashSet<>());
+        TrackDto album2Track1 = new TrackDto(4L, "Come Together", 259, 1, albumDto2.id());
         albumDto2.tracks().add(album2Track1);
-        TrackDto album2Track2 = new TrackDto(5L, "Something", 182, 2, null);
+        TrackDto album2Track2 = new TrackDto(5L, "Something", 182, 2, albumDto2.id());
         albumDto2.tracks().add(album2Track2);
         return albumDto2;
     }

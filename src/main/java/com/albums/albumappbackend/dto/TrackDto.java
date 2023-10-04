@@ -17,14 +17,15 @@ public record TrackDto(
         @Min(1)
         int trackNumber,
 
-        AlbumDto album
+        @Min(1)
+        Long albumId
 ) {
         public TrackDto(Track track) {
                 this(track.getId(),
                     track.getTitle(),
                     track.getSeconds(),
                     track.getTrackNumber(),
-                    new AlbumDto(track.getAlbum().getId(), track.getAlbum().getTitle(), null, track.getAlbum().getCover(), track.getAlbum().getReleaseDate().toString(), track.getAlbum().getRating(), null, null));
+                    track.getAlbum().getId());
         }
 
 }

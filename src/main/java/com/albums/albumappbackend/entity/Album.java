@@ -40,7 +40,7 @@ public class Album
         this.id = albumDto.id();
         this.title = albumDto.title();
         this.cover = albumDto.cover();
-        this.releaseDate = LocalDate.parse(albumDto.releaseDate());
+        this.releaseDate = albumDto.releaseDate();
         this.rating = albumDto.rating();
     }
 

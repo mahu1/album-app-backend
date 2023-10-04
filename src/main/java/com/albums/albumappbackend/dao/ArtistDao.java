@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface ArtistDao extends JpaRepository<Artist, Long> {
     @Query("SELECT a FROM Artist a " +
-            "WHERE LOWER(a.title) = LOWER(:title) ")
-    public List<Artist> findByTitle(String title);
+            "WHERE LOWER(a.title) = LOWER(:artistTitle) ")
+    public List<Artist> findByArtistTitle(String artistTitle);
 
 }
