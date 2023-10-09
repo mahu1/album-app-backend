@@ -38,7 +38,7 @@ public class ArtistService {
     @Transactional
     public void delete(Long id) {
         Artist artist = artistDao.findById(id).orElseThrow();
-        List<Album> albums = albumDao.findBy(artist.getTitle(), null, null, null);
+        List<Album> albums = albumDao.findByArtistTitle(artist.getTitle(), null, null);
         for (Album album : albums) {
             albumService.delete(album.getId());
         }

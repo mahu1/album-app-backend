@@ -91,7 +91,7 @@ class AlbumTests {
 
     @Test
     public void testCreateDuplicateAlbumException() {
-        when(albumDao.findBy(any(), any(), any(), any())).thenReturn(Arrays.asList(album1));
+        when(albumDao.findByAlbumAndArtistTitle(any(), any())).thenReturn(Arrays.asList(album1));
 
         Assertions.assertThrows(ResponseStatusException.class, () -> {
             albumService.create(albumDto2);

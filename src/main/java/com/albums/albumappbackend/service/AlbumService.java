@@ -37,12 +37,14 @@ public class AlbumService {
     }
 
     @Transactional(readOnly = true)
-    public List<AlbumPlainDto> findAlbums(String artistTitle, String albumTitle, String trackTitle, Integer rating, List<Long> genreIds) {
+    public List<AlbumPlainDto> findAlbums(String artistTitle, String albumTitle, String trackTitle, Double rating, List<Long> genreIds) {
         List<Album> albums;
         if (trackTitle != null) {
             albums = albumDao.findByTrackTitle(trackTitle, rating, genreIds);
+        } else if (artistTitle != null) {
+            albums = albumDao.findByArtistTitle(artistTitle, rating, genreIds);
         } else {
-            albums = albumDao.findBy(artistTitle, albumTitle, rating, genreIds);
+            albums = albumDao.findByAlbumTitle(albumTitle, rating, genreIds);
         }
         return albums.stream().map(a -> new AlbumPlainDto(a)).collect(Collectors.toList());
     }
