@@ -23,7 +23,7 @@ public record AlbumDto(
         @NotNull
         LocalDate releaseDate,
 
-        Integer rating,
+        Double rating,
 
         Set<TrackDto> tracks,
 

@@ -24,7 +24,7 @@ public class AlbumController {
     public List<AlbumPlainDto> getAlbums(@RequestParam(name="artist", required=false) String artistTitle,
                                          @RequestParam(name="album", required=false) String albumTitle,
                                          @RequestParam(name="track", required=false) String trackTitle,
-                                         @RequestParam(name="rating", required=false) Integer rating,
+                                         @RequestParam(name="rating", required=false) Double rating,
                                          @RequestParam(name="genres", required=false) List<Long> genreIds) {
         return albumService.findAlbums(artistTitle, albumTitle, trackTitle, rating, genreIds);
     }

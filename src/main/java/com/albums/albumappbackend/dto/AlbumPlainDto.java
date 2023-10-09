@@ -21,7 +21,7 @@ public record AlbumPlainDto(
         @NotNull
         LocalDate releaseDate,
 
-        Integer rating
+        Double rating
 
 ) {
 
