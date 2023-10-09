@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -22,9 +23,11 @@ public interface AlbumDao extends JpaRepository<Album, Long>  {
            "WHERE " +
            "  (:albumTitle IS NULL OR LOWER(a.title) LIKE LOWER(CONCAT('%', :albumTitle, '%'))) AND " +
            "  (:rating IS NULL OR a.rating >= :rating) AND " +
-           "  (COALESCE(:genreIds) IS NULL OR EXISTS (SELECT g FROM Genre g WHERE g.id IN (:genreIds) AND g MEMBER OF a.genres)) " +
+           "  (COALESCE(:genreIds) IS NULL OR EXISTS (SELECT g FROM Genre g WHERE g.id IN (:genreIds) AND g MEMBER OF a.genres)) AND " +
+            " (COALESCE(:releaseDateStart) IS NULL OR a.releaseDate >= :releaseDateStart) AND " +
+            " (COALESCE(:releaseDateEnd) IS NULL OR a.releaseDate <= :releaseDateEnd) " +
            "ORDER BY a.releaseDate, a.title")
-    public List<Album> findByAlbumTitle(String albumTitle, Double rating, List<Long> genreIds);
+    public List<Album> findByAlbumTitle(String albumTitle, Double rating, List<Long> genreIds, LocalDate releaseDateStart, LocalDate releaseDateEnd);
 
     @Query("SELECT a FROM Album a " +
            "INNER JOIN Artist ar ON a.artist.id = ar.id " +

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -37,14 +38,14 @@ public class AlbumService {
     }
 
     @Transactional(readOnly = true)
-    public List<AlbumPlainDto> findAlbums(String artistTitle, String albumTitle, String trackTitle, Double rating, List<Long> genreIds) {
+    public List<AlbumPlainDto> findAlbums(String artistTitle, String albumTitle, String trackTitle, Double rating, List<Long> genreIds, LocalDate releaseDateStart, LocalDate releaseDateEnd) {
         List<Album> albums;
         if (trackTitle != null) {
             albums = albumDao.findByTrackTitle(trackTitle, rating, genreIds);
         } else if (artistTitle != null) {
             albums = albumDao.findByArtistTitle(artistTitle, rating, genreIds);
         } else {
-            albums = albumDao.findByAlbumTitle(albumTitle, rating, genreIds);
+            albums = albumDao.findByAlbumTitle(albumTitle, rating, genreIds, releaseDateStart, releaseDateEnd);
         }
         return albums.stream().map(a -> new AlbumPlainDto(a)).collect(Collectors.toList());
     }

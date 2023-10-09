@@ -7,6 +7,8 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -25,8 +27,11 @@ public class AlbumController {
                                          @RequestParam(name="album", required=false) String albumTitle,
                                          @RequestParam(name="track", required=false) String trackTitle,
                                          @RequestParam(name="rating", required=false) Double rating,
-                                         @RequestParam(name="genres", required=false) List<Long> genreIds) {
-        return albumService.findAlbums(artistTitle, albumTitle, trackTitle, rating, genreIds);
+                                         @RequestParam(name="genres", required=false) List<Long> genreIds,
+                                         @RequestParam(name="releaseDateStart", required=false) String releaseDateStart,
+                                         @RequestParam(name="releaseDateEnd", required=false) String releaseDateEnd) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return albumService.findAlbums(artistTitle, albumTitle, trackTitle, rating, genreIds, releaseDateStart != null ? LocalDate.parse(releaseDateStart, formatter) : null, releaseDateEnd != null ? LocalDate.parse(releaseDateEnd, formatter) : null);
     }
 
     @GetMapping("/")
