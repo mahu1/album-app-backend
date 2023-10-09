@@ -47,6 +47,10 @@ public class Track {
         return trackNumber;
     }
 
+    public void setTrackNumber(int trackNumber) {
+        this.trackNumber = trackNumber;
+    }
+
     public Album getAlbum() {
         return album;
     }

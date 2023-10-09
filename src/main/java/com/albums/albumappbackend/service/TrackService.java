@@ -13,6 +13,7 @@ import org.springframework.util.ReflectionUtils;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -51,6 +52,19 @@ public class TrackService {
     public TrackDto patch(Long id, Map<String, Object> changes) {
         Track track = trackDao.findById(id).orElseThrow();
         changes.forEach((key, value) -> {
+            if (key == "trackNumber") {
+                // Update duplicate track number
+                Track updatingTrack = trackDao.findById(id).get();
+                Album album = updatingTrack.getAlbum();
+                Optional<Track> duplicateTrack = album.getTracks().stream().filter(t -> t.getTrackNumber() == (Integer) value).findFirst();
+                if (duplicateTrack.isPresent()) {
+                    if (updatingTrack.getTrackNumber() > (Integer) value) {
+                        duplicateTrack.get().setTrackNumber(duplicateTrack.get().getTrackNumber() + 1);
+                    } else {
+                        duplicateTrack.get().setTrackNumber(duplicateTrack.get().getTrackNumber() - 1);
+                    }
+                }
+            }
             Field field = ReflectionUtils.findField(Track.class, key);
             field.setAccessible(true);
             ReflectionUtils.setField(field, track, value);
