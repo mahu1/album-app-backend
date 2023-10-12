@@ -76,29 +76,17 @@ public class AlbumService {
     }
 
     @Transactional
-    public AlbumDto patch(Long id, AlbumDto albumDto) {
+    public AlbumDto put(Long id, AlbumDto albumDto) {
         validateAlbumData(albumDto);
         Album album = albumDao.findById(id).orElseThrow();
-        if (!Objects.equals(albumDto.title(), album.getTitle())) {
-            album.setTitle(albumDto.title());
-        }
-        if (!Objects.equals(albumDto.cover(), album.getCover())) {
-            album.setCover(albumDto.cover());
-        }
-        if (!Objects.equals(albumDto.releaseDate(), album.getReleaseDate())) {
-            album.setReleaseDate(albumDto.releaseDate());
-        }
-        if (!Objects.equals(albumDto.rating(), album.getRating())) {
-            album.setRating(albumDto.rating());
-        }
-        if (!Objects.equals(albumDto.artist().title(), album.getArtist().getTitle())) {
-            List<Artist> artists = artistDao.findByArtistTitle(albumDto.artist().title());
-            album.setArtist(artists.get(0));
-        }
-        if (!albumDto.genres().stream().map(g -> g.id()).sorted().collect(Collectors.toList()).equals(album.getGenres().stream().map(g -> g.getId()).sorted().collect(Collectors.toList()))) {
-            List<Genre> genres = genreDao.findAllById(albumDto.genres().stream().map(g -> g.id()).collect(Collectors.toSet()));
-            album.setGenres(new HashSet<>(genres));
-        }
+        album.setTitle(albumDto.title());
+        album.setCover(albumDto.cover());
+        album.setReleaseDate(albumDto.releaseDate());
+        album.setRating(albumDto.rating());
+        List<Artist> artists = artistDao.findByArtistTitle(albumDto.artist().title());
+        album.setArtist(artists.get(0));
+        List<Genre> genres = genreDao.findAllById(albumDto.genres().stream().map(g -> g.id()).collect(Collectors.toSet()));
+        album.setGenres(new HashSet<>(genres));
         return new AlbumDto(album.getId(), album.getTitle(), new ArtistDto(album.getArtist()), album.getCover(), album.getReleaseDate(), album.getRating(), null, null);
     }
 

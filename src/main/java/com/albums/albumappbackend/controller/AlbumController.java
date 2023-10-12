@@ -49,10 +49,10 @@ public class AlbumController {
             return albumService.create(albumDto);
     }
 
-    @PatchMapping("/albums/{id}")
-    public AlbumDto patch(@PathVariable(name = "id") Long id,
-                          @RequestBody @Valid AlbumDto albumDto) {
-        return albumService.patch(id, albumDto);
+    @PutMapping("/albums/{id}")
+    public AlbumDto put(@PathVariable(name = "id") Long id,
+                        @RequestBody @Valid AlbumDto albumDto) {
+        return albumService.put(id, albumDto);
     }
 
 }
