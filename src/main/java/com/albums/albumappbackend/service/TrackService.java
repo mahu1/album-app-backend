@@ -31,9 +31,7 @@ public class TrackService {
         // Update track numbers
         Set<Track> tracks = track.getAlbum().getTracks();
         tracks.stream().filter(t -> t.getTrackNumber() > track.getTrackNumber()).forEach(t -> {
-            Map<String, Object> changes = new HashMap();
-            changes.put("trackNumber", t.getTrackNumber() - 1);
-            patch(t.getId(), changes);
+            t.setTrackNumber(t.getTrackNumber() - 1);
         });
 
         trackDao.deleteById(id);
@@ -54,11 +52,10 @@ public class TrackService {
         changes.forEach((key, value) -> {
             if (key == "trackNumber") {
                 // Update duplicate track number
-                Track updatingTrack = trackDao.findById(id).get();
-                Album album = updatingTrack.getAlbum();
+                Album album = track.getAlbum();
                 Optional<Track> duplicateTrack = album.getTracks().stream().filter(t -> t.getTrackNumber() == (Integer) value).findFirst();
                 if (duplicateTrack.isPresent()) {
-                    if (updatingTrack.getTrackNumber() > (Integer) value) {
+                    if (track.getTrackNumber() > (Integer) value) {
                         duplicateTrack.get().setTrackNumber(duplicateTrack.get().getTrackNumber() + 1);
                     } else {
                         duplicateTrack.get().setTrackNumber(duplicateTrack.get().getTrackNumber() - 1);
