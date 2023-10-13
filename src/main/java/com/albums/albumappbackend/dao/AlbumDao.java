@@ -15,9 +15,11 @@ public interface AlbumDao extends JpaRepository<Album, Long>  {
            "WHERE " +
            "  (:trackTitle IS NULL OR LOWER(t.title) LIKE LOWER(CONCAT('%', :trackTitle, '%'))) AND " +
            "  (:rating IS NULL OR a.rating >= :rating) AND " +
-           "  (COALESCE(:genreIds) IS NULL OR EXISTS (SELECT g FROM Genre g WHERE g.id IN (:genreIds) AND g MEMBER OF a.genres)) " +
+           "  (COALESCE(:genreIds) IS NULL OR EXISTS (SELECT g FROM Genre g WHERE g.id IN (:genreIds) AND g MEMBER OF a.genres)) AND " +
+            " (COALESCE(:releaseDateStart) IS NULL OR a.releaseDate >= :releaseDateStart) AND " +
+            " (COALESCE(:releaseDateEnd) IS NULL OR a.releaseDate <= :releaseDateEnd) " +
            "ORDER BY a.releaseDate, a.title")
-    public List<Album> findByTrackTitle(String trackTitle, Double rating, List<Long> genreIds);
+    public List<Album> findByTrackTitle(String trackTitle, Double rating, List<Long> genreIds, LocalDate releaseDateStart, LocalDate releaseDateEnd);
 
     @Query("SELECT a FROM Album a " +
            "WHERE " +
@@ -34,9 +36,11 @@ public interface AlbumDao extends JpaRepository<Album, Long>  {
            "WHERE " +
            "  (:artistTitle IS NULL OR LOWER(ar.title) LIKE LOWER(CONCAT('%', :artistTitle, '%'))) AND " +
            "  (:rating IS NULL OR a.rating >= :rating) AND " +
-           "  (COALESCE(:genreIds) IS NULL OR EXISTS (SELECT g FROM Genre g WHERE g.id IN (:genreIds) AND g MEMBER OF a.genres)) " +
+           "  (COALESCE(:genreIds) IS NULL OR EXISTS (SELECT g FROM Genre g WHERE g.id IN (:genreIds) AND g MEMBER OF a.genres)) AND " +
+            " (COALESCE(:releaseDateStart) IS NULL OR a.releaseDate >= :releaseDateStart) AND " +
+            " (COALESCE(:releaseDateEnd) IS NULL OR a.releaseDate <= :releaseDateEnd) " +
            "ORDER BY a.releaseDate, a.title")
-    public List<Album> findByArtistTitle(String artistTitle, Double rating, List<Long> genreIds);
+    public List<Album> findByArtistTitle(String artistTitle, Double rating, List<Long> genreIds, LocalDate releaseDateStart, LocalDate releaseDateEnd);
 
     @Query("SELECT a FROM Album a " +
            "INNER JOIN Artist ar ON a.artist.id = ar.id " +

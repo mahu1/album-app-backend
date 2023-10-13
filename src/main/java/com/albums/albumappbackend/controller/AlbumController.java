@@ -31,7 +31,13 @@ public class AlbumController {
                                          @RequestParam(name="releaseDateStart", required=false) String releaseDateStart,
                                          @RequestParam(name="releaseDateEnd", required=false) String releaseDateEnd) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        return albumService.findAlbums(artistTitle, albumTitle, trackTitle, rating, genreIds, releaseDateStart != null ? LocalDate.parse(releaseDateStart, formatter) : null, releaseDateEnd != null ? LocalDate.parse(releaseDateEnd, formatter) : null);
+        return albumService.findAlbums(artistTitle,
+                                       albumTitle,
+                                       trackTitle,
+                                       rating,
+                                       genreIds,
+                                       releaseDateStart != null ? LocalDate.parse(releaseDateStart, formatter) : null,
+                                       releaseDateEnd != null ? LocalDate.parse(releaseDateEnd, formatter) : null);
     }
 
     @GetMapping("/")

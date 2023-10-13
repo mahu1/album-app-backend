@@ -41,9 +41,9 @@ public class AlbumService {
     public List<AlbumPlainDto> findAlbums(String artistTitle, String albumTitle, String trackTitle, Double rating, List<Long> genreIds, LocalDate releaseDateStart, LocalDate releaseDateEnd) {
         List<Album> albums;
         if (trackTitle != null) {
-            albums = albumDao.findByTrackTitle(trackTitle, rating, genreIds);
+            albums = albumDao.findByTrackTitle(trackTitle, rating, genreIds, releaseDateStart, releaseDateEnd);
         } else if (artistTitle != null) {
-            albums = albumDao.findByArtistTitle(artistTitle, rating, genreIds);
+            albums = albumDao.findByArtistTitle(artistTitle, rating, genreIds, releaseDateStart, releaseDateEnd);
         } else {
             albums = albumDao.findByAlbumTitle(albumTitle, rating, genreIds, releaseDateStart, releaseDateEnd);
         }
