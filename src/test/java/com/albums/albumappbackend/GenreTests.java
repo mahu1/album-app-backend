@@ -69,7 +69,6 @@ class GenreTests {
         List<GenreDto> genres = genreService.findAll();
         Assertions.assertNotNull(genres);
         Assertions.assertEquals(2, genres.size());
-
         Assertions.assertEquals(genres.get(0).albums().size(), 1);
         Assertions.assertEquals(genres.get(1).albums().size(), 2);
     }

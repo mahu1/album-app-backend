@@ -13,11 +13,6 @@ public class GenreController {
     @Autowired
     GenreService genreService;
 
-    @GetMapping("/genres/{id}")
-    public GenreDto getById(@PathVariable("id") Long id) {
-        return genreService.findById(id);
-    }
-
     @GetMapping("/genres")
     public List<GenreDto> getGenres() {
         return genreService.findAll();

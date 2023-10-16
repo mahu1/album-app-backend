@@ -17,12 +17,6 @@ public class GenreService {
     GenreDao genreDao;
 
     @Transactional(readOnly = true)
-    public GenreDto findById(Long id) {
-        Genre genre = genreDao.findById(id).orElseThrow();
-        return new GenreDto(genre);
-    }
-
-    @Transactional(readOnly = true)
     public List<GenreDto> findAll() {
         List<Genre> genres = genreDao.findAll(Sort.by("title"));
         return genres.stream().map(g -> new GenreDto(g)).toList();
