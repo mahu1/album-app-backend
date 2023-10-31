@@ -7,10 +7,14 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public record ArtistDto(
+
         long id,
+
         @NotBlank
         String title,
+
         Set<AlbumPlainDto> albums
+
 ) {
 
         public ArtistDto(Artist artist) {

@@ -7,13 +7,14 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public record AlbumPlainDto(
+
         long id,
 
         @NotBlank
         String title,
 
         @NotBlank
-        String artist,
+        String artistTitle,
 
         @NotBlank
         String cover,
@@ -26,12 +27,11 @@ public record AlbumPlainDto(
 ) {
 
         public AlbumPlainDto(Album album) {
-            this(album.getId(),
-                 album.getTitle(),
-                 album.getArtist().getTitle(),
-                 album.getCover(),
-                 album.getReleaseDate(),
-                 album.getRating());
+                this(album.getId(), album.getTitle(),
+                album.getArtist().getTitle(),
+                album.getCover(),
+                album.getReleaseDate(),
+                album.getRating());
         }
 
 }

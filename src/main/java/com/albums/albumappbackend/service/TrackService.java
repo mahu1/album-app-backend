@@ -69,6 +69,7 @@ public class TrackService {
         return new TrackDto(track);
     }
 
+    @Transactional(readOnly = true)
     public List<String> findAllTrackTitles() {
         return trackDao.findAllTrackTitles();
     }

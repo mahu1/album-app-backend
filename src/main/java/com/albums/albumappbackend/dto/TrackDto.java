@@ -19,13 +19,15 @@ public record TrackDto(
 
         @Min(1)
         Long albumId
+
 ) {
+
         public TrackDto(Track track) {
                 this(track.getId(),
-                    track.getTitle(),
-                    track.getSeconds(),
-                    track.getTrackNumber(),
-                    track.getAlbum().getId());
+                track.getTitle(),
+                track.getSeconds(),
+                track.getTrackNumber(),
+                track.getAlbum().getId());
         }
 
 }

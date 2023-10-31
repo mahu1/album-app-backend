@@ -16,6 +16,7 @@ public record GenreDto(
         Set<AlbumPlainDto> albums
 
 ) {
+
         public GenreDto(Genre genre) {
                 this(genre.getId(),
                 genre.getTitle(),
