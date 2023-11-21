@@ -72,7 +72,7 @@ class TrackTests {
     }
 
     @Test
-    public void testEditTrackNumber() {
+    public void testReduceTrackNumber() {
         TrackDto secondTrackDto = albumDto2.tracks().stream().filter(t -> t.trackNumber() == 2).findFirst().get();
         Track firstTrack = album2.getTracks().stream().filter(t -> t.getTrackNumber() == 1).findFirst().get();
         Track secondTrack = album2.getTracks().stream().filter(t -> t.getTrackNumber() == 2).findFirst().get();
@@ -85,6 +85,22 @@ class TrackTests {
 
         Assertions.assertEquals(1, updatedTrackDto.trackNumber()); // Track number changed 2 -> 1
         Assertions.assertEquals(2, firstTrack.getTrackNumber()); // Track number changed 1 -> 2
+    }
+
+    @Test
+    public void testIncreaseTrackNumber() {
+        TrackDto firstTrackDto = albumDto2.tracks().stream().filter(t -> t.trackNumber() == 1).findFirst().get();
+        Track firstTrack = album2.getTracks().stream().filter(t -> t.getTrackNumber() == 1).findFirst().get();
+        Track secondTrack = album2.getTracks().stream().filter(t -> t.getTrackNumber() == 2).findFirst().get();
+
+        when(trackDao.findById(firstTrack.getId())).thenReturn(Optional.of(firstTrack));
+
+        Map<String, Object> changes = new HashMap<>();
+        changes.put("trackNumber", 2);
+        TrackDto updatedTrackDto = trackService.patch(firstTrackDto.id(), changes);
+
+        Assertions.assertEquals(2, updatedTrackDto.trackNumber()); // Track number changed 1 -> 2
+        Assertions.assertEquals(1, secondTrack.getTrackNumber()); // Track number changed 2 -> 1
     }
 
 }
