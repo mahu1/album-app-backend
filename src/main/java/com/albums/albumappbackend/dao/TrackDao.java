@@ -9,7 +9,6 @@ import java.util.List;
 
 @Repository
 public interface TrackDao extends JpaRepository<Track, Long> {
-
     @Query("SELECT DISTINCT t.title FROM Track t ORDER BY t.title")
     public List<String> findAllTrackTitles();
 

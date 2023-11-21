@@ -16,8 +16,8 @@ public interface AlbumDao extends JpaRepository<Album, Long>  {
            "  (:trackTitle IS NULL OR LOWER(t.title) LIKE LOWER(CONCAT('%', :trackTitle, '%'))) AND " +
            "  (:rating IS NULL OR a.rating >= :rating) AND " +
            "  (COALESCE(:genreIds) IS NULL OR EXISTS (SELECT g FROM Genre g WHERE g.id IN (:genreIds) AND g MEMBER OF a.genres)) AND " +
-            " (COALESCE(:releaseDateStart) IS NULL OR a.releaseDate >= :releaseDateStart) AND " +
-            " (COALESCE(:releaseDateEnd) IS NULL OR a.releaseDate <= :releaseDateEnd) " +
+           "  (COALESCE(:releaseDateStart) IS NULL OR a.releaseDate >= :releaseDateStart) AND " +
+           "  (COALESCE(:releaseDateEnd) IS NULL OR a.releaseDate <= :releaseDateEnd) " +
            "ORDER BY a.releaseDate, a.title")
     public List<Album> findByTrackTitle(String trackTitle, Double rating, List<Long> genreIds, LocalDate releaseDateStart, LocalDate releaseDateEnd);
 
@@ -26,8 +26,8 @@ public interface AlbumDao extends JpaRepository<Album, Long>  {
            "  (:albumTitle IS NULL OR LOWER(a.title) LIKE LOWER(CONCAT('%', :albumTitle, '%'))) AND " +
            "  (:rating IS NULL OR a.rating >= :rating) AND " +
            "  (COALESCE(:genreIds) IS NULL OR EXISTS (SELECT g FROM Genre g WHERE g.id IN (:genreIds) AND g MEMBER OF a.genres)) AND " +
-            " (COALESCE(:releaseDateStart) IS NULL OR a.releaseDate >= :releaseDateStart) AND " +
-            " (COALESCE(:releaseDateEnd) IS NULL OR a.releaseDate <= :releaseDateEnd) " +
+           "  (COALESCE(:releaseDateStart) IS NULL OR a.releaseDate >= :releaseDateStart) AND " +
+           "  (COALESCE(:releaseDateEnd) IS NULL OR a.releaseDate <= :releaseDateEnd) " +
            "ORDER BY a.releaseDate, a.title")
     public List<Album> findByAlbumTitle(String albumTitle, Double rating, List<Long> genreIds, LocalDate releaseDateStart, LocalDate releaseDateEnd);
 
@@ -37,8 +37,8 @@ public interface AlbumDao extends JpaRepository<Album, Long>  {
            "  (:artistTitle IS NULL OR LOWER(ar.title) LIKE LOWER(CONCAT('%', :artistTitle, '%'))) AND " +
            "  (:rating IS NULL OR a.rating >= :rating) AND " +
            "  (COALESCE(:genreIds) IS NULL OR EXISTS (SELECT g FROM Genre g WHERE g.id IN (:genreIds) AND g MEMBER OF a.genres)) AND " +
-            " (COALESCE(:releaseDateStart) IS NULL OR a.releaseDate >= :releaseDateStart) AND " +
-            " (COALESCE(:releaseDateEnd) IS NULL OR a.releaseDate <= :releaseDateEnd) " +
+           "  (COALESCE(:releaseDateStart) IS NULL OR a.releaseDate >= :releaseDateStart) AND " +
+           "  (COALESCE(:releaseDateEnd) IS NULL OR a.releaseDate <= :releaseDateEnd) " +
            "ORDER BY a.releaseDate, a.title")
     public List<Album> findByArtistTitle(String artistTitle, Double rating, List<Long> genreIds, LocalDate releaseDateStart, LocalDate releaseDateEnd);
 
@@ -49,5 +49,10 @@ public interface AlbumDao extends JpaRepository<Album, Long>  {
            "  (:artistTitle IS NULL OR LOWER(ar.title) = LOWER(:artistTitle)) " +
            "ORDER BY a.title, ar.title")
     public List<Album> findByAlbumAndArtistTitle(String albumTitle, String artistTitle);
+
+    @Query("SELECT a FROM Album a " +
+           "WHERE EXISTS (SELECT g FROM Genre g WHERE g.id = :genreId AND g MEMBER OF a.genres) " +
+           "ORDER BY a.releaseDate, a.title")
+    public List<Album> findByGenreId(Long genreId);
 
 }
