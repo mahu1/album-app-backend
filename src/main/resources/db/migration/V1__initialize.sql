@@ -5,7 +5,7 @@
 -- Dumped from database version 15.3
 -- Dumped by pg_dump version 15.3
 
--- Started on 2023-09-29 13:09:38
+-- Started on 2023-11-21 13:46:10
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -19,7 +19,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- TOC entry 5 (class 2615 OID 2200)
+-- TOC entry 5 (class 2615 OID 114777)
 -- Name: public; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
@@ -29,7 +29,7 @@ SET row_security = off;
 ALTER SCHEMA public OWNER TO postgres;
 
 --
--- TOC entry 3370 (class 0 OID 0)
+-- TOC entry 3381 (class 0 OID 0)
 -- Dependencies: 5
 -- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: postgres
 --
@@ -42,7 +42,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 215 (class 1259 OID 98334)
+-- TOC entry 215 (class 1259 OID 114787)
 -- Name: albums; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -52,14 +52,14 @@ CREATE TABLE public.albums (
     release_date date NOT NULL,
     title character varying(255) NOT NULL,
     artist_id bigint NOT NULL,
-    rating integer
+    rating double precision
 );
 
 
 ALTER TABLE public.albums OWNER TO postgres;
 
 --
--- TOC entry 222 (class 1259 OID 98442)
+-- TOC entry 216 (class 1259 OID 114792)
 -- Name: albums_genres; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -72,7 +72,7 @@ CREATE TABLE public.albums_genres (
 ALTER TABLE public.albums_genres OWNER TO postgres;
 
 --
--- TOC entry 216 (class 1259 OID 98339)
+-- TOC entry 217 (class 1259 OID 114795)
 -- Name: albums_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -87,7 +87,7 @@ CREATE SEQUENCE public.albums_seq
 ALTER TABLE public.albums_seq OWNER TO postgres;
 
 --
--- TOC entry 217 (class 1259 OID 98340)
+-- TOC entry 218 (class 1259 OID 114796)
 -- Name: artists; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -100,7 +100,7 @@ CREATE TABLE public.artists (
 ALTER TABLE public.artists OWNER TO postgres;
 
 --
--- TOC entry 218 (class 1259 OID 98345)
+-- TOC entry 219 (class 1259 OID 114799)
 -- Name: artists_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -114,8 +114,9 @@ CREATE SEQUENCE public.artists_seq
 
 ALTER TABLE public.artists_seq OWNER TO postgres;
 
+
 --
--- TOC entry 221 (class 1259 OID 98377)
+-- TOC entry 220 (class 1259 OID 114800)
 -- Name: genres; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -128,7 +129,22 @@ CREATE TABLE public.genres (
 ALTER TABLE public.genres OWNER TO postgres;
 
 --
--- TOC entry 219 (class 1259 OID 98346)
+-- TOC entry 223 (class 1259 OID 139337)
+-- Name: genres_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.genres_seq
+    START WITH 1
+    INCREMENT BY 50
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.genres_seq OWNER TO postgres;
+
+--
+-- TOC entry 221 (class 1259 OID 114803)
 -- Name: tracks; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -144,7 +160,7 @@ CREATE TABLE public.tracks (
 ALTER TABLE public.tracks OWNER TO postgres;
 
 --
--- TOC entry 220 (class 1259 OID 98349)
+-- TOC entry 222 (class 1259 OID 114806)
 -- Name: tracks_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -158,8 +174,45 @@ CREATE SEQUENCE public.tracks_seq
 
 ALTER TABLE public.tracks_seq OWNER TO postgres;
 
+
 --
--- TOC entry 3218 (class 2606 OID 98446)
+-- TOC entry 3383 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: albums_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.albums_seq', 3251, true);
+
+
+--
+-- TOC entry 3384 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: artists_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.artists_seq', 1151, true);
+
+
+--
+-- TOC entry 3385 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: genres_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.genres_seq', 58, true);
+
+
+--
+-- TOC entry 3386 (class 0 OID 0)
+-- Dependencies: 222
+-- Name: tracks_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.tracks_seq', 2951, true);
+
+
+--
+-- TOC entry 3207 (class 2606 OID 114808)
 -- Name: albums_genres albums_genres_album_id_genre_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -168,7 +221,7 @@ ALTER TABLE ONLY public.albums_genres
 
 
 --
--- TOC entry 3200 (class 2606 OID 98351)
+-- TOC entry 3201 (class 2606 OID 114810)
 -- Name: albums albums_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -177,7 +230,7 @@ ALTER TABLE ONLY public.albums
 
 
 --
--- TOC entry 3202 (class 2606 OID 98353)
+-- TOC entry 3203 (class 2606 OID 114812)
 -- Name: albums albums_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -186,7 +239,7 @@ ALTER TABLE ONLY public.albums
 
 
 --
--- TOC entry 3204 (class 2606 OID 98415)
+-- TOC entry 3205 (class 2606 OID 114814)
 -- Name: albums albums_title_artist_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -195,7 +248,7 @@ ALTER TABLE ONLY public.albums
 
 
 --
--- TOC entry 3206 (class 2606 OID 98357)
+-- TOC entry 3209 (class 2606 OID 114816)
 -- Name: artists artists_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -204,7 +257,7 @@ ALTER TABLE ONLY public.artists
 
 
 --
--- TOC entry 3208 (class 2606 OID 98359)
+-- TOC entry 3211 (class 2606 OID 114818)
 -- Name: artists artists_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -213,7 +266,7 @@ ALTER TABLE ONLY public.artists
 
 
 --
--- TOC entry 3210 (class 2606 OID 98425)
+-- TOC entry 3213 (class 2606 OID 114820)
 -- Name: artists artists_title_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -222,7 +275,7 @@ ALTER TABLE ONLY public.artists
 
 
 --
--- TOC entry 3216 (class 2606 OID 98381)
+-- TOC entry 3215 (class 2606 OID 114822)
 -- Name: genres genres_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -231,7 +284,7 @@ ALTER TABLE ONLY public.genres
 
 
 --
--- TOC entry 3212 (class 2606 OID 98363)
+-- TOC entry 3217 (class 2606 OID 114824)
 -- Name: tracks tracks_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -240,7 +293,7 @@ ALTER TABLE ONLY public.tracks
 
 
 --
--- TOC entry 3214 (class 2606 OID 98365)
+-- TOC entry 3219 (class 2606 OID 114826)
 -- Name: tracks tracks_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -249,7 +302,7 @@ ALTER TABLE ONLY public.tracks
 
 
 --
--- TOC entry 3219 (class 2606 OID 98366)
+-- TOC entry 3220 (class 2606 OID 114827)
 -- Name: albums albums_artist_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -258,7 +311,7 @@ ALTER TABLE ONLY public.albums
 
 
 --
--- TOC entry 3221 (class 2606 OID 98452)
+-- TOC entry 3221 (class 2606 OID 114832)
 -- Name: albums_genres albums_genres_album_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -267,7 +320,7 @@ ALTER TABLE ONLY public.albums_genres
 
 
 --
--- TOC entry 3222 (class 2606 OID 98447)
+-- TOC entry 3222 (class 2606 OID 114837)
 -- Name: albums_genres albums_genres_genre_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -276,7 +329,7 @@ ALTER TABLE ONLY public.albums_genres
 
 
 --
--- TOC entry 3220 (class 2606 OID 98371)
+-- TOC entry 3223 (class 2606 OID 114842)
 -- Name: tracks tracks_album_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -285,7 +338,7 @@ ALTER TABLE ONLY public.tracks
 
 
 --
--- TOC entry 3371 (class 0 OID 0)
+-- TOC entry 3382 (class 0 OID 0)
 -- Dependencies: 5
 -- Name: SCHEMA public; Type: ACL; Schema: -; Owner: postgres
 --
@@ -293,7 +346,7 @@ ALTER TABLE ONLY public.tracks
 REVOKE USAGE ON SCHEMA public FROM PUBLIC;
 
 
--- Completed on 2023-09-29 13:09:38
+-- Completed on 2023-11-21 13:46:10
 
 --
 -- PostgreSQL database dump complete
