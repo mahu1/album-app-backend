@@ -20,6 +20,7 @@ public class AlbumAppBackendApplication {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**").allowedOrigins("http://localhost:3000").allowedMethods("GET", "POST", "DELETE", "PATCH", "PUT");
+				//registry.addMapping("/**").allowedOrigins("http://albums-frontend.s3-website.eu-north-1.amazonaws.com").allowedMethods("GET", "POST", "DELETE", "PATCH", "PUT");
 			}
 		};
 	}

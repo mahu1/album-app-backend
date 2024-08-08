@@ -17,6 +17,9 @@ public class Track {
     private int seconds;
     @Column(nullable = false)
     private int trackNumber;
+
+    @Column(nullable = false)
+    private int discNumber;
     @ManyToOne
     private Album album;
 
@@ -29,6 +32,7 @@ public class Track {
         this.title = trackDto.title();
         this.seconds = trackDto.seconds();
         this.trackNumber = trackDto.trackNumber();
+        this.discNumber = trackDto.discNumber();
     }
 
     public long getId() {
@@ -49,6 +53,14 @@ public class Track {
 
     public void setTrackNumber(int trackNumber) {
         this.trackNumber = trackNumber;
+    }
+
+    public int getDiscNumber() {
+        return discNumber;
+    }
+
+    public void setDiscNumber(int discNumber) {
+        this.discNumber = discNumber;
     }
 
     public Album getAlbum() {

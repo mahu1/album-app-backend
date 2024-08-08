@@ -18,6 +18,9 @@ public record TrackDto(
         int trackNumber,
 
         @Min(1)
+        int discNumber,
+
+        @Min(1)
         Long albumId
 
 ) {
@@ -27,6 +30,7 @@ public record TrackDto(
                 track.getTitle(),
                 track.getSeconds(),
                 track.getTrackNumber(),
+                track.getDiscNumber(),
                 track.getAlbum().getId());
         }
 

@@ -39,7 +39,7 @@ public record AlbumDto(
                 album.getCover(),
                 album.getReleaseDate(),
                 album.getRating(),
-                album.getTracks().stream().map(t -> new TrackDto(t.getId(), t.getTitle(), t.getSeconds(), t.getTrackNumber(), t.getAlbum().getId())).collect(Collectors.toSet()),
+                album.getTracks().stream().map(t -> new TrackDto(t.getId(), t.getTitle(), t.getSeconds(), t.getTrackNumber(), t.getDiscNumber(), t.getAlbum().getId())).collect(Collectors.toSet()),
                 album.getGenres().stream().map(g -> new GenreDto(g.getId(), g.getTitle(), null)).collect(Collectors.toSet()));
         }
 

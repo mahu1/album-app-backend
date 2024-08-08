@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
 @Service
 public class TrackService {
@@ -30,7 +31,7 @@ public class TrackService {
 
         // Update track numbers
         Set<Track> tracks = track.getAlbum().getTracks();
-        tracks.stream().filter(t -> t.getTrackNumber() > track.getTrackNumber()).forEach(t -> {
+        tracks.stream().filter(t ->  t.getDiscNumber() == track.getDiscNumber() && t.getTrackNumber() > track.getTrackNumber()).forEach(t -> {
             t.setTrackNumber(t.getTrackNumber() - 1);
         });
 
@@ -51,15 +52,17 @@ public class TrackService {
         Track track = trackDao.findById(id).orElseThrow();
         changes.forEach((key, value) -> {
             if (key == "trackNumber") {
-                // Update duplicate track number
+                // Update duplicate disc and track number
                 Album album = track.getAlbum();
-                Optional<Track> duplicateTrack = album.getTracks().stream().filter(t -> t.getTrackNumber() == (Integer) value).findFirst();
+                Stream<Track> duplicateTracks = album.getTracks().stream().filter(t -> t.getTrackNumber() == (Integer) value);
+                if (changes.get("discNumber") != null) {
+                    int discNumber = (Integer) changes.get("discNumber");
+                    duplicateTracks = duplicateTracks.filter(t -> t.getDiscNumber() == discNumber);
+                }
+                Optional<Track> duplicateTrack = duplicateTracks.findFirst();
                 if (duplicateTrack.isPresent()) {
-                    if (track.getTrackNumber() > (Integer) value) {
-                        duplicateTrack.get().setTrackNumber(duplicateTrack.get().getTrackNumber() + 1);
-                    } else {
-                        duplicateTrack.get().setTrackNumber(duplicateTrack.get().getTrackNumber() - 1);
-                    }
+                    duplicateTrack.get().setDiscNumber(track.getDiscNumber());
+                    duplicateTrack.get().setTrackNumber(track.getTrackNumber());
                 }
             }
             Field field = ReflectionUtils.findField(Track.class, key);
