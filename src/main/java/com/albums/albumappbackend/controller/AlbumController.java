@@ -3,8 +3,11 @@ package com.albums.albumappbackend.controller;
 import com.albums.albumappbackend.dto.AlbumDto;
 import com.albums.albumappbackend.dto.AlbumPlainDto;
 import com.albums.albumappbackend.service.AlbumService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -40,6 +43,7 @@ public class AlbumController {
                                        releaseDateEnd != null ? LocalDate.parse(releaseDateEnd, formatter) : null);
     }
 
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/")
     public List<AlbumPlainDto> getAlbums() {
         return albumService.findAll();
@@ -52,7 +56,7 @@ public class AlbumController {
 
     @PostMapping("/albums")
     public AlbumDto create(@RequestBody @Valid AlbumDto albumDto) {
-            return albumService.create(albumDto);
+        return albumService.create(albumDto);
     }
 
     @PutMapping("/albums/{id}")

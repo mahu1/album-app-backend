@@ -36,5 +36,4 @@ public class GenreController {
         return genreService.patch(id, changes);
     }
 
-
 }

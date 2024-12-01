@@ -11,15 +11,19 @@ public class Track {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
     private long id;
+
     @Column(nullable = false)
     private String title;
+
     @Column(nullable = false)
     private int seconds;
+
     @Column(nullable = false)
     private int trackNumber;
 
     @Column(nullable = false)
     private int discNumber;
+
     @ManyToOne
     private Album album;
 

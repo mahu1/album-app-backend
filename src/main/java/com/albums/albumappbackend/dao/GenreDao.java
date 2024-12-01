@@ -10,7 +10,11 @@ import java.util.List;
 @Repository
 public interface GenreDao extends JpaRepository<Genre, Long> {
     @Query("SELECT g FROM Genre g " +
-            "WHERE LOWER(g.title) = LOWER(:genreTitle) ")
+            "WHERE LOWER(g.title) = LOWER(:genreTitle)")
     public List<Genre> findByGenreTitle(String genreTitle);
+
+    @Query("SELECT g FROM Genre g " +
+            "WHERE LOWER(g.title) IN :genreTitles")
+    public List<Genre> findByGenreTitles(List<String> genreTitles);
 
 }

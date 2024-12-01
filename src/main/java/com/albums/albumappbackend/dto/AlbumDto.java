@@ -18,10 +18,8 @@ public record AlbumDto(
         @NotNull
         ArtistDto artist,
 
-        @NotBlank
         String cover,
 
-        @NotNull
         LocalDate releaseDate,
 
         Double rating,

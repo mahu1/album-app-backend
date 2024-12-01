@@ -8,6 +8,7 @@ import com.albums.albumappbackend.dto.*;
 import com.albums.albumappbackend.entity.Album;
 import com.albums.albumappbackend.entity.Artist;
 import com.albums.albumappbackend.entity.Genre;
+import com.albums.albumappbackend.entity.Track;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -64,15 +65,78 @@ public class AlbumService {
     }
 
     @Transactional
-    public AlbumDto create(AlbumDto albumDto) {
+        public AlbumDto create(AlbumDto albumDto) {
         validateAlbumData(albumDto);
+
+        // Create new Album entity
         Album album = new Album(albumDto);
+
+        // Find and set the artist
         List<Artist> artists = artistDao.findByArtistTitle(albumDto.artist().title());
         album.setArtist(artists.get(0));
-        List<Genre> genres = genreDao.findAllById(albumDto.genres().stream().map(g -> g.id()).collect(Collectors.toSet()));
-        album.setGenres(new HashSet<>(genres));
+
+        // Ensure the album has an initialized genres set
+        if (album.getGenres() == null) {
+            album.setGenres(new HashSet<>());
+        }
+
+        // Save genres if they do not exist
+        if (albumDto.genres() != null) {
+            Set<Genre> genres = albumDto.genres().stream().map(g -> {
+                List<Genre> existingGenres = genreDao.findByGenreTitles(Collections.singletonList(g.title().toLowerCase()));
+                if (existingGenres.isEmpty()) {
+                    return genreDao.save(new Genre(g)); // Save new genre
+                } else {
+                    return existingGenres.get(0); // Use existing genre
+                }
+            }).collect(Collectors.toSet());
+            album.setGenres(genres);
+        }
+
+        // Ensure the album has an initialized tracks set
+        if (album.getTracks() == null) {
+            album.setTracks(new HashSet<>());
+        }
+
+        // Create tracks and set their album
+        Set<Track> tracks = new HashSet<>();
+        if (albumDto.tracks() != null) {
+            tracks = albumDto.tracks().stream().map(t -> {
+                Track track = new Track(t);
+                track.setAlbum(album); // Associate the track with the album
+                return track;
+            }).collect(Collectors.toSet());
+            album.setTracks(tracks);
+        }
+
+        // Save the album and its tracks
         Album createdAlbum = albumDao.save(album);
-        return new AlbumDto(createdAlbum.getId(), createdAlbum.getTitle(), new ArtistDto(createdAlbum.getArtist().getId(), createdAlbum.getArtist().getTitle(), null), createdAlbum.getCover(), createdAlbum.getReleaseDate(), createdAlbum.getRating(), null, album.getGenres().stream().map(g -> new GenreDto(g.getId(), g.getTitle(), null)).collect(Collectors.toSet()));
+        trackDao.saveAll(tracks);
+
+        // Fetch the saved album with its genres and tracks
+        Album foundAlbum = albumDao.findById(createdAlbum.getId())
+                .orElseThrow(() -> new RuntimeException("Album not found"));
+
+        // Convert to AlbumDto and return
+        return new AlbumDto(
+                foundAlbum.getId(),
+                foundAlbum.getTitle(),
+                new ArtistDto(foundAlbum.getArtist().getId(), foundAlbum.getArtist().getTitle(), null),
+                foundAlbum.getCover(),
+                foundAlbum.getReleaseDate(),
+                foundAlbum.getRating(),
+                foundAlbum.getTracks().stream().map(t -> new TrackDto(t.getId(), t.getTitle(), t.getSeconds(), t.getTrackNumber(), t.getDiscNumber(), t.getId())).collect(Collectors.toSet()),
+                foundAlbum.getGenres().stream().map(g -> new GenreDto(g.getId(), g.getTitle(), null)).collect(Collectors.toSet())
+        );
+    }
+
+
+
+    @Transactional
+    public AlbumDto createAlbumAndTracks(AlbumDto albumDto) {
+        AlbumDto albumCreated = create(albumDto);
+        trackDao.saveAll(albumDto.tracks().stream().map(t -> new Track(t)).collect(Collectors.toList()));
+        return new AlbumDto(albumDao.findById(albumCreated.id()).get());
     }
 
     @Transactional
@@ -98,12 +162,6 @@ public class AlbumService {
         List<Artist> foundArtists = artistDao.findByArtistTitle(albumDto.artist().title());
         if (foundArtists.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Artist cannot found: " + albumDto.artist().title());
-        }
-        List<Genre> foundGenres = genreDao.findAllById(albumDto.genres().stream().map(g -> g.id()).collect(Collectors.toSet()));
-        Set<Long> genreIds = foundGenres.stream().map(g -> g.getId()).collect(Collectors.toSet());
-        Set<GenreDto> notFoundGenres = albumDto.genres().stream().filter(g -> !genreIds.contains(g.id())).collect(Collectors.toSet());
-        if (!notFoundGenres.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Genre(s) cannot found: " + notFoundGenres.stream().map(g -> g.title()).collect(Collectors.joining(", ")));
         }
     }
 

@@ -13,8 +13,10 @@ public class Artist {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
     private long id;
+
     @Column(nullable = false)
     private String title;
+
     @OneToMany(mappedBy="artist")
     private Set<Album> albums;
 

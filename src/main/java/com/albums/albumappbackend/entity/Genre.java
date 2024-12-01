@@ -13,8 +13,10 @@ public class Genre {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
     private long id;
+
     @Column(nullable = false)
     private String title;
+
     @ManyToMany(mappedBy = "genres")
     private Set<Album> albums;
 

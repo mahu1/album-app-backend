@@ -8,28 +8,36 @@ import java.util.Set;
 
 @Entity
 @Table(name = "albums")
-public class Album
-{
+public class Album {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
     private long id;
+
     @Column(nullable = false)
     private String title;
+
     @Column(nullable = false)
     private String cover;
+
     @Column(nullable = false)
     private LocalDate releaseDate;
+
     private Double rating;
+
     @OneToMany(mappedBy="album")
     private Set<Track> tracks;
+
     @ManyToOne
     private Artist artist;
+
     @ManyToMany
     @JoinTable(
             name = "albums_genres",
             joinColumns = @JoinColumn(name = "album_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id"))
+
     private Set<Genre> genres;
 
     Album() {
